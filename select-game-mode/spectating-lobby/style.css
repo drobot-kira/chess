@@ -1,0 +1,307 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body
+{
+    background-color: #0f0f0f;
+    color: #bfbfbf;
+    font-family: 'Segoe UI Light';
+}
+
+a
+{
+    color:#bfbfbf;
+    text-decoration: none;
+}
+
+li
+{
+    list-style: none;
+}
+
+button
+{
+    border: none;
+}
+
+.header
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+}
+
+.title
+{
+    padding: 0.5vw;
+    font-family: 'Segoe Print';
+    font-size: 10vmin;
+}
+
+.main
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 0 auto;
+    width: 98vw;
+    height: 89vh;
+}
+
+.waiting-room
+{
+    background: #262626;
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 50vw;
+}
+
+.link-container
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 10%;
+    margin-bottom: 3%;
+}
+
+.link-container__link
+{
+    background: #3f3f3f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 90%;
+    width: 45%;
+    border-radius:15px;
+    font-size: 2.5vw;
+    font-weight: bold;
+}
+
+.link-container__link:hover
+{
+    border: #bfbfbf solid 1px;
+}
+
+.link-container__link:active
+{
+    background: #0f0f0f;
+}
+
+
+.link-container__link_active
+{
+    border: #bfbfbf solid 1px;
+}
+
+.game-container
+{
+    width: 100%;
+    height: 90%;
+    overflow-y: auto;
+    text-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.game-container__item
+{
+    background: #3f3f3f;
+    width: 90%;
+    margin-bottom: 1%;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.opponents
+{
+    width: 50%;
+    font-size: 2vw;
+    margin-left: 3%;
+    padding: 2vh 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container-for-time-and-button
+{
+    margin-right: 3%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 30%;
+    height: 80%;
+}
+
+.container-for-time-and-button__time
+{
+    font-size: 2vw;
+}
+
+.container-for-time-and-button__join-game-button
+{
+    width: 50%;
+    height: 70%;
+    border-radius: 15px;
+    border: none;
+    background: #262626;
+    color: #bfbfbf;
+}
+
+.container-for-time-and-button__join-game-button:hover
+{
+    border: #bfbfbf solid 1px;
+}
+
+.container-for-time-and-button__join-game-button:active
+{
+    background-color: #3f3f3f;
+}
+
+.game-container::-webkit-scrollbar
+{
+    width: 1vw;
+}
+
+.game-container::-webkit-scrollbar-track
+{
+    background: #262626;
+    border-radius: 10px;
+}
+
+.game-container::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    width: 50%;
+    background: #bfbfbf;
+}
+
+.game-container::-webkit-scrollbar-thumb:hover
+{
+    background: #909090;
+}
+
+.menu{
+    display: flex;
+    justify-content: flex-end;
+    width: 45%;
+    height: 100%;
+}
+
+.side-menu
+{
+    width: 60%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mode-container
+{
+    background: #262626;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    height: 60%;
+    border-radius: 20px;
+}
+
+.mode-container__item
+{
+    width: 100%;
+    height: 20%;
+    border-radius: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3vw;
+}
+
+.mode-container__item:hover
+{
+    border: solid 1px #bfbfbf
+}
+
+.start-game-button
+{
+    width: 100%;
+    height: 20%;
+    border-radius: 150px;
+    background: #262626;
+    font-family: 'Segoe UI Light';
+    color: #bfbfbf;
+    font-size: 4vw;
+}
+
+.start-game-button:hover
+{
+    border: #bfbfbf solid 1px;
+}
+
+.start-game-button:active
+{
+    background: #0f0f0f;
+}
+
+.submenu-container
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 20%;
+    height: 53%;
+    background: #3f3f3f;
+    position: absolute;
+    right: 27%;
+    top: 10%;
+    border-radius: 20px;
+    transform: translateZ(-1px);
+    visibility: hidden;
+}
+
+.classic-container:hover .classic-submenu
+{
+    visibility: visible;
+}
+
+.rapid-container:hover .rapid-submenu
+{
+    visibility: visible;
+}
+
+.blitz-container:hover .blitz-submenu
+{
+    visibility: visible;
+}
+
+.bullet-container:hover .bullet-submenu
+{
+    visibility: visible;
+}
+
+.mode-container__item:active .submenu-container
+{
+    visibility: hidden;
+}
