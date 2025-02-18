@@ -22,6 +22,12 @@ a
     text-decoration: none;
 }
 
+td{
+    text-align: center;
+    font-weight: bold;
+    color: #532209;
+ }
+
 .header
 {
     display: flex;
@@ -59,6 +65,18 @@ a
     justify-content: space-between;
     }
 
+.main-section__name-and-material{
+    display: flex;
+    flex-direction: column;
+    font-weight: bold;
+    padding-left: 0.5vmin;
+    }   
+
+.main-section__name-and-material__name-upper{
+padding-top: 1vmin;
+font-size: 3vmin;
+}
+
 .main-section__upper-timer{
     display: flex;
     background-color: #262626;
@@ -67,33 +85,10 @@ a
     align-items: flex-start;
     font-size: 5vmin;
     font-weight: bold;
-    height: 120%;
+    height: 128%;
     padding: 0.4vmin;
     border-radius: 13px;
 }
-
-.main-section__lower-timer{
-    display: flex;
-    background-color: #262626;
-    width: 12vmin;
-    justify-content: center;
-    align-items: center;
-    font-size: 5vmin;
-    font-weight: bold;
-    height: 120%;
-    border-radius: 13px;
-    position: relative;
-    bottom: 20%;
-    padding-top: 0.9vmin;
-}
-
-.main-section__name-and-material{
-    display: flex;
-    flex-direction: column;
-    font-weight: bold;
-    padding-left: 0.5vmin;
-}   
-
 
 .table
 {
@@ -103,7 +98,6 @@ a
     background: #CD996D;
     border-collapse: collapse;
     z-index: 1;
-
 }
 
 .line
@@ -119,7 +113,6 @@ a
 .line__item
 {
     width: 11%;
-    
 }
 
 .line__item-with-number
@@ -127,46 +120,12 @@ a
     width: 6%;
 }
 
-.time-buttons{
-    display: flex;
-    flex-direction: row;
-}
-
-.main-section__name-and-material__name-upper{
-    padding-top: 1vmin;
-    font-size: 3vmin;
-}
-
-.main-section__name-and-material__name-lower{
-   font-size: 3vmin;
-}
-
-.buttons{
-    padding-right: 0.5vmin;
-}
-.buttons__draw-button{
-   height: 8vmin;
-   width: 8vmin;
-}
-.buttons__surrender-button{
-    height: 8vmin;
-    width: 8vmin;
- }
-
- td{
-    text-align: center;
-    font-weight: bold;
-    color: #532209;
- }
-
- .line__item__button{
+.line__item__button{
     width: 100%;
     height: 100%;
     border: none;
-    
  }
 
- 
  .line__item__button:hover{
     background: pink;
  }
@@ -174,3 +133,75 @@ a
  .line__item__button:active{
     background: red;
  }
+
+.main-section__name-and-material__name-lower{
+    font-size: 3vmin;
+ }
+
+.time-buttons{
+    display: flex;
+    flex-direction: row;
+}
+
+.buttons{
+    padding-right: 0.5vmin;
+    padding-top: 5px;
+}
+
+.buttons__draw-button{
+   height: 8vmin;
+   width: 8vmin;
+   background-color: #262626;
+   border: none;
+   border-radius: 13px;
+}
+
+.buttons__draw-button__image{
+    width: 6vmin;
+    height: 6vmin;
+ }
+
+ .buttons__draw-button:hover{
+    background-color: #323232;
+  }
+
+  .buttons__draw-button:active{
+    background-color: #0f0f0f;
+ }
+
+.buttons__resign-button{
+    height: 8vmin;
+    width: 8vmin;
+    background-color: #262626;
+    border: none;  
+    border-radius: 13px;
+ }
+
+ .buttons__resign-button__image{
+    width: 6vmin;
+    height: 6vmin;
+ }
+
+ .buttons__resign-button:hover{
+   background-color: #323232;
+ }
+
+ .buttons__resign-button:active{
+    background-color: #0f0f0f;
+ }
+
+ .main-section__lower-timer{
+    display: flex;
+    background-color: #262626;
+    width: 12vmin;
+    justify-content: center;
+    align-items: center;
+    font-size: 5vmin;
+    font-weight: bold;
+    height: 128%;
+    border-radius: 13px;
+    position: relative;
+    bottom: 20%;
+    padding-top: 0.9vmin;
+}
+ 
