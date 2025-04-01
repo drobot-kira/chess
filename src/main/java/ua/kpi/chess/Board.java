@@ -1,5 +1,5 @@
 ﻿package ua.kpi.chess;
-import java.util.List;
+import java.util.LinkedList;
 
 public class Board
 {
@@ -22,15 +22,12 @@ public class Board
         return field;
     }
     public byte[][] AddMarks(byte[][] field, byte SquareId)
-    {
-        List<Byte> possibleMoves = Piece.FindPossibleMoves(field, SquareId);
-
-        for(int i = 0; i < possibleMoves.size(); i++)
-        {
-            byte possibleMoveCoord = possibleMoves.get(i);
+    {    LinkedList<Byte> possibleMoves = Piece.FindPossibleMoves(field, SquareId);
+        for (byte possibleMoveCoord : possibleMoves) {
             byte fieldI = (byte) (possibleMoveCoord / 10);
             byte fieldJ = (byte) (possibleMoveCoord % 10);
-            field[fieldI][fieldJ] *= -1;
+            if (fieldI >= 0 && fieldI < field.length && fieldJ >= 0 && fieldJ < field[fieldI].length) {
+                field[fieldI][fieldJ] *= -1;        }
         }
         return field;
     }
@@ -49,4 +46,3 @@ public class Board
         return -1;
     }
 }
-
