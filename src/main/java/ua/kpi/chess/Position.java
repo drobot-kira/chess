@@ -1,4 +1,8 @@
+<<<<<<< Updated upstream
 ﻿package ua.kpi.chess;
+=======
+package main.java.org.example;
+>>>>>>> Stashed changes
 
 public class Position
 {
@@ -26,4 +30,8 @@ public class Position
     {
 
     }*/
+<<<<<<< Updated upstream
 }
+=======
+}
+>>>>>>> Stashed changes

@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿package ua.kpi.chess;
 
 import java.util.ArrayList;
@@ -120,6 +121,22 @@ public class Knight extends Piece
 
         coordinatesKnightI = (byte)(PieceCoords/10);
         coordinatesKnightJ = (byte)(PieceCoords%10);
+=======
+package main.java.org.example;
+
+import java.util.LinkedList;
+
+public class Knight extends Piece
+{
+    public LinkedList<Byte> FindPossibleMoves(byte[][] field, byte PieceCoords, byte colorKnight)
+    {
+        LinkedList<Byte> listPossibleMoves = new LinkedList<>();
+
+        byte coordinatesPossibleMoves = 0;
+
+        byte coordinatesKnightI = (byte)(PieceCoords/10);
+        byte coordinatesKnightJ = (byte)(PieceCoords%10);
+>>>>>>> Stashed changes
         coordinatesKnightI +=2;
         coordinatesKnightJ +=1;
         if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) //рухаємося вниз вправо
@@ -201,4 +218,7 @@ public class Knight extends Piece
         return listPossibleMoves;
     }
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
