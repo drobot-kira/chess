@@ -1,4 +1,4 @@
-package main.java.org.example;
+package ua.kpi.chess;
 
 import java.util.LinkedList;
 
@@ -16,11 +16,5 @@ public class Main {
                 {14, 12, 13, 15, 16, 13, 12, 14},
                 {0,   0,  0, 52,  0,  0,  0,  0}
         };
-
-        LinkedList<Byte> listPossibleMoves = new LinkedList<>();
-        Pawn piece = new Pawn();
-        //boolean ckeack = rook.IsMovePossible(field, (byte)40, (byte)43);
-        listPossibleMoves = piece.FindPossibleMoves(field, (byte)42, (byte)2);
-        System.out.println(listPossibleMoves);
     }
 }

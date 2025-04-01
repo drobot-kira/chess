@@ -1,14 +1,6 @@
-<<<<<<< Updated upstream
-﻿package ua.kpi.chess;
-=======
-package main.java.org.example;
->>>>>>> Stashed changes
+package ua.kpi.chess;
 
-public class Piece
+class Piece
 {
 
-<<<<<<< Updated upstream
 }
-=======
-}
->>>>>>> Stashed changes
