@@ -6,15 +6,21 @@ public class Main {
     public static void main(String[] args)
     {
         byte[][] field = {
-                {24, 22, 23, 25, 26, 23, 22, 24},
-                {21, 21, 21, 21, 21, 21, 21, 21},
                 {30, 30, 30, 30, 30, 30, 30, 30},
                 {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 21, 30, 30, 30, 30, 30},
                 {30, 30, 30, 30, 30, 30, 30, 30},
-                {11, 11, 11, 11, 11, 11, 11, 11},
-                {14, 12, 13, 15, 16, 13, 12, 14},
-                {0,   0,  0, 52,  0,  0,  0,  0}
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 11},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {1,   0,  0, 46,  0,  0,  0,  0}
         };
+
+        LinkedList<Byte> listPossibleMoves = new LinkedList<>();
+        listPossibleMoves = Piece.FindPossibleMoves(field, (byte)57);
+        for (byte possibleMove : listPossibleMoves) {
+            System.out.println(possibleMove);
+        }
     }
 }

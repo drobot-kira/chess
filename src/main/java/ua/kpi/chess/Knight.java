@@ -2,92 +2,23 @@ package ua.kpi.chess;
 
 import java.util.LinkedList;
 
-public class Knight extends Piece
-{
-    public LinkedList<Byte> FindPossibleMoves(byte[][] field, byte PieceCoords, byte colorKnight)
-    {
+public class Knight extends Piece {
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorKnight, boolean check) {
         LinkedList<Byte> listPossibleMoves = new LinkedList<>();
 
-        byte coordinatesPossibleMoves = 0;
+        byte coordinatesKnightI = (byte) (PieceCoords / 10);
+        byte coordinatesKnightJ = (byte) (PieceCoords % 10);
 
-        byte coordinatesKnightI = (byte)(PieceCoords/10);
-        byte coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI +=2;
-        coordinatesKnightJ +=1;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) //рухаємося вниз вправо
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
+        byte[][] Delta = {{-2, 1}, {-1, 2}, {1, 2}, {2, 1}, {2, -1}, {1, -2}, {-1, -2}, {-2, -1}};
 
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI +=2;
-        coordinatesKnightJ -=1;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) // рухаємося вниз вліво
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI -=2;
-        coordinatesKnightJ +=1;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) //рухаємося вгору вправо
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI -=2;
-        coordinatesKnightJ -=1;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) //рухаємося вгору вліво
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI +=1;
-        coordinatesKnightJ +=2;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) // рухаємося вправо вниз
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI -=1;
-        coordinatesKnightJ +=2;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) // рухаємося вправо вгору
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI +=1;
-        coordinatesKnightJ -=2;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) // рухаємося вліво вниз
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
-        }
-
-        coordinatesKnightI = (byte)(PieceCoords/10);
-        coordinatesKnightJ = (byte)(PieceCoords%10);
-        coordinatesKnightI -=1;
-        coordinatesKnightJ -=2;
-        if((coordinatesKnightI >= 0 && coordinatesKnightJ >= 0) && (coordinatesKnightI <= 7 && coordinatesKnightJ <= 7) && field[coordinatesKnightI][coordinatesKnightJ]/10 != colorKnight) // рухаємося вліво вгору
-        {
-            coordinatesPossibleMoves = (byte)((coordinatesKnightI*10) + coordinatesKnightJ);
-            listPossibleMoves.add(coordinatesPossibleMoves);
+        for (byte[] delta : Delta) {
+            if (coordinatesKnightI + delta[0] >= 0 && coordinatesKnightJ + delta[1] >= 0 &&
+                    coordinatesKnightI + delta[0] < 8 && coordinatesKnightJ + delta[1] < 8 &&
+                    field[coordinatesKnightI + delta[0]][coordinatesKnightJ + delta[1]] / 10 % 10 != colorKnight) {
+                if (!check || !Position.IsThereACheck(field)) {
+                    listPossibleMoves.add((byte) ((coordinatesKnightI + delta[0]) * 10 + coordinatesKnightJ + delta[1]));
+                }
+            }
         }
 
         return listPossibleMoves;

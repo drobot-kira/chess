@@ -2,7 +2,7 @@ package ua.kpi.chess;
 
 class Position
 {
-    public boolean IsThereACheck(byte[][] field)
+    public static boolean IsThereACheck(byte[][] field)
     {
         return false;
     }
