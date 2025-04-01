@@ -1,4 +1,4 @@
-package main.java.org.example;
+package ua.kpi.chess;
 
 public class Game
 {
