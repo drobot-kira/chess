@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 ﻿package ua.kpi.chess;
 
 import java.util.ArrayList;
@@ -116,6 +117,23 @@ public class Rook extends Piece
 
         byte coordinatesPossibleMoves = 0;
         for(int j = coordinatesRookJ + 1; j <= coordinatesRookMoveJ; j++) //рухаємося ліворуч
+=======
+package main.java.org.example;
+
+import java.util.LinkedList;
+
+public class Rook extends Piece
+{
+    public LinkedList<Byte> FindPossibleMoves(byte[][] field, byte PieceCoords, byte colorRook)
+    {
+        LinkedList<Byte> listPossibleMoves = new LinkedList<>();
+
+        byte coordinatesRookI = (byte)(PieceCoords/10);
+        byte coordinatesRookJ = (byte)(PieceCoords%10);
+
+        byte coordinatesPossibleMoves = 0;
+        for(byte j = (byte)(coordinatesRookJ + 1); j <= 7; j++) //рухаємося ліворуч
+>>>>>>> Stashed changes
         {
             if(field[coordinatesRookI][j]/10 == colorRook)
             {
@@ -131,12 +149,20 @@ public class Rook extends Piece
             listPossibleMoves.add(coordinatesPossibleMoves);
         }
 
+<<<<<<< Updated upstream
         coordinatesRookMoveJ = 0;
         for(int j = coordinatesRookJ - 1; j >= coordinatesRookMoveJ; j--) //рухаємося праворуч
         {
             if(field[coordinatesRookI][j]/10 == colorRook)
             {
                 break;
+=======
+        for(byte j = (byte)(coordinatesRookJ - 1); j >= 0; j--) //рухаємося праворуч
+        {
+            if(field[coordinatesRookI][j]/10 == colorRook)
+            {
+               break;
+>>>>>>> Stashed changes
             }
             else if(field[coordinatesRookI][j] != 30)
             {
@@ -148,12 +174,20 @@ public class Rook extends Piece
             listPossibleMoves.add(coordinatesPossibleMoves);
         }
 
+<<<<<<< Updated upstream
         coordinatesRookMoveI = 7;
         for(int i = coordinatesRookI + 1; i <= coordinatesRookMoveI; i++) //рухаємося вниз
         {
             if (field[i][coordinatesRookJ] / 10 == colorRook)
             {
                 break;
+=======
+        for(byte i = (byte)(coordinatesRookI + 1); i <= 7; i++) //рухаємося вниз
+        {
+            if (field[i][coordinatesRookJ] / 10 == colorRook)
+            {
+               break;
+>>>>>>> Stashed changes
             }
             else if (field[i][coordinatesRookJ] != 30)
             {
@@ -165,8 +199,12 @@ public class Rook extends Piece
             listPossibleMoves.add(coordinatesPossibleMoves);
         }
 
+<<<<<<< Updated upstream
         coordinatesRookMoveI = 0;
         for(int i = coordinatesRookI - 1; i >= coordinatesRookMoveI; i--) //рухаємося вгору
+=======
+        for(byte i = (byte)(coordinatesRookI - 1); i >= 0; i--) //рухаємося вгору
+>>>>>>> Stashed changes
         {
             if (field[i][coordinatesRookJ] / 10 == colorRook)
             {
@@ -185,4 +223,7 @@ public class Rook extends Piece
         return listPossibleMoves;
     }
 }
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
