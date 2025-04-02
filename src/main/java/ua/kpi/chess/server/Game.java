@@ -10,10 +10,13 @@ import java.util.List;
 
 public class Game {
     private byte[][] getField(int GameId) {
+        File file = new File("src/main/java/ua/kpi/chess/server/field.txt");
+        System.out.println("Absolute path: " + file.getAbsolutePath());
+
         List<byte[]> matrixList = new ArrayList<>();
 
         try (BufferedReader reader = new BufferedReader(new FileReader(
-                "C:\\Users\\Lenovo\\Desktop\\server\\chess\\src\\main\\java\\ua\\kpi\\chess\\server\\field.txt"))) {
+                "src/main/java/ua/kpi/chess/server/field.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] numbers = line.trim().split("\\s+"); // Розбиваємо по пробілах
@@ -50,7 +53,7 @@ public class Game {
 
     private void writeMove(int GameId, byte[][] field) {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter
-                ("C:\\Users\\Lenovo\\Desktop\\server\\chess\\src\\main\\java\\ua\\kpi\\chess\\server\\field.txt"))) {
+                ("src/main/java/ua/kpi/chess/server/field.txt"))) {
             for (byte[] row : field) {
                 for (byte num : row) {
                     writer.write(num + " ");
