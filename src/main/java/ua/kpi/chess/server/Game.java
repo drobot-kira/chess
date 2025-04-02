@@ -155,10 +155,8 @@ public class Game {
 
                     byte[][] fieldCopy = new byte[9][8];
 
-                    for (byte a = 0; a < 9; a++)
-                    {
-                        for (byte b = 0; b < 8; b++)
-                        {
+                    for (byte a = 0; a < 9; a++) {
+                        for (byte b = 0; b < 8; b++) {
                             fieldCopy[a][b] = field[a][b];
                         }
                     }

@@ -13,12 +13,12 @@ public class Queen extends Piece {
             if (field[coordinatesQueenI][j] / 10 % 10 == colorQueen) {
                 break;
             } else if (field[coordinatesQueenI][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((coordinatesQueenI * 10) + j))) {
                     listPossibleMoves.add((byte) ((coordinatesQueenI * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((coordinatesQueenI * 10) + j))) {
                 listPossibleMoves.add((byte) ((coordinatesQueenI * 10) + j));
             }
         }
@@ -27,12 +27,12 @@ public class Queen extends Piece {
             if (field[coordinatesQueenI][j] / 10 % 10 == colorQueen) {
                 break;
             } else if (field[coordinatesQueenI][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((coordinatesQueenI * 10) + j))) {
                     listPossibleMoves.add((byte) ((coordinatesQueenI * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((coordinatesQueenI * 10) + j))) {
                 listPossibleMoves.add((byte) ((coordinatesQueenI * 10) + j));
             }
         }
@@ -41,12 +41,12 @@ public class Queen extends Piece {
             if (field[i][coordinatesQueenJ] / 10 % 10 == colorQueen) {
                 break;
             } else if (field[i][coordinatesQueenJ] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + coordinatesQueenJ))) {
                     listPossibleMoves.add((byte) ((i * 10) + coordinatesQueenJ));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + coordinatesQueenJ))) {
                 listPossibleMoves.add((byte) ((i * 10) + coordinatesQueenJ));
             }
         }
@@ -55,12 +55,12 @@ public class Queen extends Piece {
             if (field[i][coordinatesQueenJ] / 10 % 10 == colorQueen) {
                 break;
             } else if (field[i][coordinatesQueenJ] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + coordinatesQueenJ))) {
                     listPossibleMoves.add((byte) ((i * 10) + coordinatesQueenJ));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + coordinatesQueenJ))) {
                 listPossibleMoves.add((byte) ((i * 10) + coordinatesQueenJ));
             }
         }
@@ -69,12 +69,12 @@ public class Queen extends Piece {
             if (field[i][j] / 10 == colorQueen) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -83,12 +83,12 @@ public class Queen extends Piece {
             if (field[i][j] / 10 == colorQueen) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -97,12 +97,12 @@ public class Queen extends Piece {
             if (field[i][j] / 10 == colorQueen) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -111,12 +111,12 @@ public class Queen extends Piece {
             if (field[i][j] / 10 == colorQueen) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }

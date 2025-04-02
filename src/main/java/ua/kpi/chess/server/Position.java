@@ -405,11 +405,7 @@ public class Position {
         if ((blackBishops == 1 || blackKnights == 1) && !whiteHasMoreThanKing) return true;
 
 
-        if (whiteBishops >= 0 && blackBishops >= 0 && allWhiteBishopsSameColor && allBlackBishopsSameColor) {
-            return true;
-        }
-
-        return false;
+        return whiteBishops >= 0 && blackBishops >= 0 && allWhiteBishopsSameColor && allBlackBishopsSameColor;
     }
 
 

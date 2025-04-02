@@ -3,6 +3,18 @@ package ua.kpi.chess.server;
 import java.util.LinkedList;
 
 public class Piece {
+
+    public static boolean IsThereACheck(byte[][] field, byte PieceCoords, byte SquareCoords) {
+        byte piece = field[PieceCoords / 10][PieceCoords % 10];
+        byte square = field[SquareCoords / 10][SquareCoords % 10];
+        field[SquareCoords / 10][SquareCoords % 10] = piece;
+        field[PieceCoords / 10][PieceCoords % 10] = 30;
+        boolean result = Position.IsThereACheck(field);
+        field[SquareCoords / 10][SquareCoords % 10] = square;
+        field[PieceCoords / 10][PieceCoords % 10] = piece;
+        return result;
+    }
+
     public static LinkedList<Byte> FindPossibleMoves(byte[][] field, byte PieceCoords) {
         LinkedList<Byte> possibleMoves;
         byte pieceId = field[PieceCoords / 10][PieceCoords % 10];

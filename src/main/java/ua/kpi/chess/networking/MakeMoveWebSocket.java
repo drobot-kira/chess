@@ -10,12 +10,13 @@ import ua.kpi.chess.server.Game;
 @Component
 public class MakeMoveWebSocket extends TextWebSocketHandler {
     private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
         String payload = message.getPayload();
         JsonNode jsonNode = objectMapper.readTree(payload);
 
-        byte squareId = (byte)jsonNode.get("SquareId").asInt();
+        byte squareId = (byte) jsonNode.get("SquareId").asInt();
         int gameId = jsonNode.get("GameId").asInt();
         int userId = jsonNode.get("UserId").asInt();
 

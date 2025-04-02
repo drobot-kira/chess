@@ -9,7 +9,7 @@ public class King extends Piece {
             i = 0;
         }
 
-        byte j = (byte)(4 + whereIsCastleJ);
+        byte j = (byte) (4 + whereIsCastleJ);
         while (j >= 2 && j <= 6) {
 
             if (field[i][j] != 30) {
@@ -46,7 +46,8 @@ public class King extends Piece {
             if (coordinatesKingI + delta[0] >= 0 && coordinatesKingJ + delta[1] >= 0 &&
                     coordinatesKingI + delta[0] < 8 && coordinatesKingJ + delta[1] < 8 &&
                     field[coordinatesKingI + delta[0]][coordinatesKingJ + delta[1]] / 10 % 10 != colorKing) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords,
+                        (byte) ((coordinatesKingI + delta[0]) * 10 + coordinatesKingJ + delta[1]))) {
                     listPossibleMoves.add((byte) ((coordinatesKingI + delta[0]) * 10 + coordinatesKingJ + delta[1]));
                 }
             }
