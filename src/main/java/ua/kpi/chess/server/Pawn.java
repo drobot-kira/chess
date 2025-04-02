@@ -1,4 +1,4 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 
 import java.util.LinkedList;
 
@@ -8,7 +8,7 @@ public class Pawn extends Piece
    {
 
    }*/
-    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorPawn, boolean check)
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorPawn)
     {
         LinkedList<Byte> listPossibleMoves = new LinkedList<>();
 
@@ -24,19 +24,19 @@ public class Pawn extends Piece
         if((-1 < coordinatesPawnI + deltaI && coordinatesPawnI + deltaI < 8) &&
                 field[coordinatesPawnI + deltaI][coordinatesPawnJ] == 30) // рух вперед
         {
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) (((coordinatesPawnI + deltaI) * 10) + coordinatesPawnJ));
             }
 
             if(coordinatesPawnI == 6 && colorPawn == 1) // рух на два ходи для білих
             {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI - 2) * 10) + coordinatesPawnJ));
                 }
             }
             else if(coordinatesPawnI == 1 && colorPawn == 2) // рух на два ходи для чорних
             {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI + 2) * 10) + coordinatesPawnJ));
                 }
             }
@@ -46,7 +46,7 @@ public class Pawn extends Piece
         {
             if (field[8][3] == (byte) (((coordinatesPawnI + deltaI) * 10) + (coordinatesPawnJ + 1)) ||
                     field[coordinatesPawnI + deltaI][coordinatesPawnJ + 1] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI + deltaI) * 10) + (coordinatesPawnJ + 1)));
                 }
             }
@@ -56,7 +56,7 @@ public class Pawn extends Piece
         {
             if (field[8][3] == (byte) (((coordinatesPawnI + deltaI) * 10) + (coordinatesPawnJ - 1)) ||
                     field[coordinatesPawnI + deltaI][coordinatesPawnJ - 1] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI + deltaI) * 10) + (coordinatesPawnJ - 1)));
                 }
             }

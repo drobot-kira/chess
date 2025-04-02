@@ -1,4 +1,4 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 
 import java.util.LinkedList;
 
@@ -16,7 +16,7 @@ public class Piece {
             case 6 -> new King();
             default -> piece;
         };
-        possibleMoves = piece.FindPossibleMovesItem(field, PieceCoords, (byte) (pieceId / 10 % 10), true);
+        possibleMoves = piece.FindPossibleMovesItem(field, PieceCoords, (byte) (pieceId / 10 % 10));
         return possibleMoves;
     }
 
@@ -31,7 +31,7 @@ public class Piece {
         return false;
     }
 
-    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte Color, boolean check) {
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte Color) {
         return null;
     }
 }

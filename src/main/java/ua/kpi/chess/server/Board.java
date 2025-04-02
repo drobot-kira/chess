@@ -1,9 +1,9 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 import java.util.LinkedList;
 
 public class Board
 {
-    public byte[][] RemoveMarks(byte[][] field)
+    public static byte[][] RemoveMarks(byte[][] field)
     {
         for(int i = 0; i < 8; i++)
         {
@@ -21,7 +21,7 @@ public class Board
         }
         return field;
     }
-    public byte[][] AddMarks(byte[][] field, byte SquareId)
+    public static byte[][] AddMarks(byte[][] field, byte SquareId)
     {    LinkedList<Byte> possibleMoves = Piece.FindPossibleMoves(field, SquareId);
         for (byte possibleMoveCoord : possibleMoves) {
             byte fieldI = (byte) (possibleMoveCoord / 10);
@@ -29,9 +29,10 @@ public class Board
             if (fieldI >= 0 && fieldI < field.length && fieldJ >= 0 && fieldJ < field[fieldI].length) {
                 field[fieldI][fieldJ] *= -1;        }
         }
+        field[SquareId / 10][SquareId % 10] += 100;
         return field;
     }
-    public byte IsThereAMarkedPiece(byte[][]  field)
+    public static byte IsThereAMarkedPiece(byte[][]  field)
     {
         for(int i = 0; i < 8; i++)
         {

@@ -15,7 +15,7 @@ public class MakeMoveWebSocket extends TextWebSocketHandler {
         String payload = message.getPayload();
         JsonNode jsonNode = objectMapper.readTree(payload);
 
-        int squareId = jsonNode.get("SquareId").asInt();
+        byte squareId = (byte)jsonNode.get("SquareId").asInt();
         int gameId = jsonNode.get("GameId").asInt();
         int userId = jsonNode.get("UserId").asInt();
 
@@ -26,7 +26,7 @@ public class MakeMoveWebSocket extends TextWebSocketHandler {
         int[][] intField = new int[field.length][field[0].length];
         for (int i = 0; i < field.length; i++) {
             for (int j = 0; j < field[i].length; j++) {
-                intField[i][j] = Byte.toUnsignedInt(field[i][j]);
+                intField[i][j] = field[i][j];
             }
         }
 

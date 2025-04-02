@@ -1,9 +1,9 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 
 import java.util.LinkedList;
 
 public class Bishop extends Piece {
-    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorBishop, boolean check) {
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorBishop) {
         LinkedList<Byte> listPossibleMoves = new LinkedList<>();
 
         byte coordinatesBishopI = (byte) (PieceCoords / 10);
@@ -13,12 +13,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -27,12 +27,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -41,12 +41,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -55,12 +55,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
