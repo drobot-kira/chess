@@ -28,13 +28,13 @@ public class Pawn extends Piece
                 listPossibleMoves.add((byte) (((coordinatesPawnI + deltaI) * 10) + coordinatesPawnJ));
             }
 
-            if(coordinatesPawnI == 6 && colorPawn == 1) // рух на два ходи для білих
+            if(coordinatesPawnI == 6 && colorPawn == 1 && field[coordinatesPawnI - 2][coordinatesPawnJ] == 30) // рух на два ходи для білих
             {
                 if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI - 2) * 10) + coordinatesPawnJ));
                 }
             }
-            else if(coordinatesPawnI == 1 && colorPawn == 2) // рух на два ходи для чорних
+            else if(coordinatesPawnI == 1 && colorPawn == 2 && field[coordinatesPawnI + 2][coordinatesPawnJ] == 30) // рух на два ходи для чорних
             {
                 if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) (((coordinatesPawnI + 2) * 10) + coordinatesPawnJ));

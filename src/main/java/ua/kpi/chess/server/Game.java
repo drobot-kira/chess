@@ -11,7 +11,6 @@ import java.util.List;
 public class Game {
     private byte[][] getField(int GameId) {
         File file = new File("src/main/java/ua/kpi/chess/server/field.txt");
-        System.out.println("Absolute path: " + file.getAbsolutePath());
 
         List<byte[]> matrixList = new ArrayList<>();
 
@@ -60,7 +59,7 @@ public class Game {
                 }
                 writer.newLine();
             }
-            writer.flush(); // Явний запис у файл
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }
