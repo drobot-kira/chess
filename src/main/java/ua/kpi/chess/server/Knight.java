@@ -15,7 +15,8 @@ public class Knight extends Piece {
             if (coordinatesKnightI + delta[0] >= 0 && coordinatesKnightJ + delta[1] >= 0 &&
                     coordinatesKnightI + delta[0] < 8 && coordinatesKnightJ + delta[1] < 8 &&
                     field[coordinatesKnightI + delta[0]][coordinatesKnightJ + delta[1]] / 10 % 10 != colorKnight) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords,
+                        (byte) ((coordinatesKnightI + delta[0]) * 10 + coordinatesKnightJ + delta[1]))) {
                     listPossibleMoves.add((byte) ((coordinatesKnightI + delta[0]) * 10 + coordinatesKnightJ + delta[1]));
                 }
             }

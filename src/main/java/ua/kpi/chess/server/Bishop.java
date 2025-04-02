@@ -13,12 +13,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -27,12 +27,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -41,12 +41,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
@@ -55,12 +55,12 @@ public class Bishop extends Piece {
             if (field[i][j] / 10 == colorBishop) {
                 break;
             } else if (field[i][j] != 30) {
-                if (!Position.IsThereACheck(field)) {
+                if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                     listPossibleMoves.add((byte) ((i * 10) + j));
                 }
                 break;
             }
-            if (!Position.IsThereACheck(field)) {
+            if (!Piece.IsThereACheck(field, PieceCoords, (byte) ((i * 10) + j))) {
                 listPossibleMoves.add((byte) ((i * 10) + j));
             }
         }
