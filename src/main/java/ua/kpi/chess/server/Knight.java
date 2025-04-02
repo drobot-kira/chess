@@ -1,9 +1,9 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 
 import java.util.LinkedList;
 
 public class Knight extends Piece {
-    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorKnight, boolean check) {
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorKnight) {
         LinkedList<Byte> listPossibleMoves = new LinkedList<>();
 
         byte coordinatesKnightI = (byte) (PieceCoords / 10);
@@ -15,7 +15,7 @@ public class Knight extends Piece {
             if (coordinatesKnightI + delta[0] >= 0 && coordinatesKnightJ + delta[1] >= 0 &&
                     coordinatesKnightI + delta[0] < 8 && coordinatesKnightJ + delta[1] < 8 &&
                     field[coordinatesKnightI + delta[0]][coordinatesKnightJ + delta[1]] / 10 % 10 != colorKnight) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((coordinatesKnightI + delta[0]) * 10 + coordinatesKnightJ + delta[1]));
                 }
             }

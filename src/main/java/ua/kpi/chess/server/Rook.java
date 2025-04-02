@@ -1,9 +1,9 @@
-package ua.kpi.chess;
+package ua.kpi.chess.server;
 
 import java.util.LinkedList;
 
 public class Rook extends Piece {
-    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorRook, boolean check) {
+    public LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorRook) {
         LinkedList<Byte> listPossibleMoves = new LinkedList<>();
 
         byte coordinatesRookI = (byte) (PieceCoords / 10);
@@ -13,12 +13,12 @@ public class Rook extends Piece {
             if (field[coordinatesRookI][j] / 10 % 10 == colorRook) {
                 break;
             } else if (field[coordinatesRookI][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((coordinatesRookI * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((coordinatesRookI * 10) + j));
             }
         }
@@ -27,12 +27,12 @@ public class Rook extends Piece {
             if (field[coordinatesRookI][j] / 10 % 10 == colorRook) {
                 break;
             } else if (field[coordinatesRookI][j] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((coordinatesRookI * 10) + j));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((coordinatesRookI * 10) + j));
             }
         }
@@ -41,12 +41,12 @@ public class Rook extends Piece {
             if (field[i][coordinatesRookJ] / 10 % 10 == colorRook) {
                 break;
             } else if (field[i][coordinatesRookJ] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + coordinatesRookJ));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + coordinatesRookJ));
             }
         }
@@ -55,12 +55,12 @@ public class Rook extends Piece {
             if (field[i][coordinatesRookJ] / 10 % 10 == colorRook) {
                 break;
             } else if (field[i][coordinatesRookJ] != 30) {
-                if (!check || !Position.IsThereACheck(field)) {
+                if (!Position.IsThereACheck(field)) {
                     listPossibleMoves.add((byte) ((i * 10) + coordinatesRookJ));
                 }
                 break;
             }
-            if (!check || !Position.IsThereACheck(field)) {
+            if (!Position.IsThereACheck(field)) {
                 listPossibleMoves.add((byte) ((i * 10) + coordinatesRookJ));
             }
         }
