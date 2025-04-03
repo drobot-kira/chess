@@ -258,6 +258,7 @@ public class Position {
 
                         for (int dc : new int[]{-1, 1}) {
                             int newC = c + dc;
+                            if (r + direction < 0) direction++;
                             if (newC >= 0 && newC < 8 && field[r + direction][newC] / 10 == (currentPlayer == 10 ? 2 : 1)) {
                                 byte captured = field[r + direction][newC];
                                 field[r + direction][newC] = field[r][c];
