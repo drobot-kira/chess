@@ -3,34 +3,41 @@ package ua.kpi.chess.server;
 import java.util.LinkedList;
 
 public class King extends Piece {
-    private boolean IsCastle(byte[][] field, byte whereIsCastleJ, byte colorKing) {
-        byte i = 7;
-        if (colorKing == 2) {
-            i = 0;
-        }
+    private boolean IsCastle(byte[][] startField, byte whereIsCastleJ, byte colorKing) {
+            byte[][] field = new byte[9][8];
 
-        byte j = (byte) (4 + whereIsCastleJ);
-        while (j >= 2 && j <= 6) {
-
-            if (field[i][j] != 30) {
-                return false;
+            for(byte i = 0; i < field.length; i++){
+                for(byte j = 0; j < field[i].length; j++){
+                    field[i][j] = startField[i][j];
+                }
             }
 
-            field[i][j] = field[i][4];
-            field[i][4] = 30;
-
-            if (Position.IsThereACheck(field)) {
-                return false;
-
+            byte i = 7;
+            if (colorKing == 2) {
+                i = 0;
             }
 
-            field[i][4] = field[i][j];
-            field[i][j] = 30;
+            byte j = (byte) (4 + whereIsCastleJ);
+            while (j >= 2 && j <= 6) {
 
-            j += whereIsCastleJ;
-        }
+                if (field[i][j] != 30) {
+                    return false;
+                }
 
-        return true;
+                field[i][j] = field[i][4];
+                field[i][4] = 30;
+
+                if (Position.IsThereACheck(field)) {
+                    return false;
+                }
+
+                field[i][4] = field[i][j];
+                field[i][j] = 30;
+
+                j += whereIsCastleJ;
+            }
+
+            return true;
     }
 
     public LinkedList<Byte> FindPossibleMovesItem(byte[][] startField, byte PieceCoords, byte colorKing) {
