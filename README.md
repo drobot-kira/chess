@@ -1,37 +1,11 @@
-## Позначння в матриці (9х8)
+# Online Chess
 
-Перші 8 рядків - фігури.
-Далі - додаткова інформація про позицію.
+## Overview
+**Online Chess** is a web-based chess game that allows players to challenge each other in real time. The system is built with a Java-based server using Spring Boot and a client-side interface developed with HTML, CSS, and JavaScript. Communication between the client and server is handled via WebSockets, ensuring dynamic and responsive gameplay.
 
-### Позначення фігур
-+ \+ - не виділена як можливий хід
-+ \- - не виділена як можливий хід
-+ 100 - виділена як фігура, яка буде ходити
-+ 10 - білі
-+ 20 - чорні
-+ 30 - пусте поле
-+ 1 - pawn - пішак
-+ 2 - knight - кінь
-+ 3 - bishop - слон
-+ 4 - rook - тура
-+ 5 - queen - ферзь
-+ 6 - king - король
-
-### Додаткова інформація про позицію
-0. + 1 - наступний хід білих 
-    + 2 - наступний хід чорних
-1. Можливість рокірування білих. 
-   + 0 - рокірування неможлива 
-   + 1 - коротка рокіровка можлива 
-   + 10 - довге рокірування можлива
-   + 11 - обидва рокірування можливі
-2. Можливість рокірування чорних. 
-   + 0 - рокірування неможливе 
-   + 1 - коротке рокірування можливе 
-   + 10 - довге рокірування можливе
-   + 11 - обидва рокірування можливі
-3. Можливість взяття на проході 
-   + Вказується число - координати поля або 0, якщо взяття неможливе. 
-4. Кількість пів ходів без взяття та руху пішака
-5. Номер ходу (у початковій позиці - 0, збільшується після кожного ходу чорних).
-    
+## Features
+- **Real-time Gameplay:** Moves are transmitted instantly using WebSockets.
+- **Move Validation:** The server validates each move (including check, mate, and stalemate conditions).
+- **Game State Management:** The game state is maintained and updated continuously on the server.
+- **User Interaction:** The web client provides an interactive chessboard with clickable squares.
+- **Modular Architecture:** Clearly divided components for game logic, UI, and data storage.
