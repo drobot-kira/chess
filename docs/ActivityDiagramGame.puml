@@ -1,0 +1,46 @@
+﻿@startuml
+
+title "Game"
+
+!pragma useVerticalIf on
+start
+
+:Square clicked;
+
+if(Is it a user's piece) then(true)
+    :Add marks;
+    :Write position in database;
+    :Return position to user;
+else(false)
+    if(Is there a selected piece) then(true)
+        if(Is move possible) then(true)
+            if(Is there a check after move) then(true)
+                :Remove all marks;
+                :Write position in database;
+                :Return position to user;
+            else(false)
+                :Remove all marks;
+                :Make move;
+                :Change extra info;
+                if(Is the game ended) then(true)
+                    :Clear database;
+                    :Show information to user;
+                else(false)
+                    :Write position in database;
+                    :Return position to user;
+                endif
+            endif
+        else(false)
+            :Remove all marks;
+            :Write position in database;
+            :Return position to user;
+        endif
+    else(false)
+        :Remove all marks;
+        :Write position in database;
+        :Return position to user;
+    endif
+endif
+stop
+
+@enduml

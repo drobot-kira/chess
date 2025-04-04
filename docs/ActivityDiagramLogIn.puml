@@ -1,0 +1,30 @@
+﻿@startuml
+
+title "Log in"
+
+!pragma useVerticalIf on
+start
+
+:The user enters the required data;
+note left: Username, password
+:User clicks "Log in";
+
+if(Fields filled in) then (true)
+    if (Username exists) then (true)
+        if (The password is correct) then (true)
+                    :Redirecting the user \nto the main menu;
+
+        else (false)
+        :"Display a message about \nan incorrect password or username";
+        endif
+    else(false)
+        :Display a message about \nan incorrect password or username;
+    endif
+
+else(false)
+    :Display message \nabout empty fields;
+endif
+
+stop
+
+@enduml
