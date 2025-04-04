@@ -1,0 +1,64 @@
+﻿@startuml
+
+title "Classes"
+
+top to bottom direction
+class Game{
+- byte[][] GetField(int GameId)
+- void GameEnded(byte end)
++ void SquareClicked(int GameId, int SquareId)
+}
+class Position{
++ bool IsThereACheck(byte[][] field)
+- bool IsThereACheckmate(byte[][] field)
+- bool IsThereAStalemate(byte[][] field)
+- bool IsThereAThreefoldRepetition(byte[][] field)
+- bool IsThereAnInsufficientMaterial(byte[][] field)
++ byte IsGameEnded(byte[][] field)
+}
+class Board{
++ byte[][] RemoveMarks(byte[][] field)
++ byte[][] AddMarks(byte[][] field, byte SquareId)
++ byte IsThereAMarkedPiece(byte[][]  field)
+}
+class Piece{
++ boolean IsThereACheck(byte[][] field, byte PieceCoords, byte SquareCoords)
++ LinkedList<Byte> FindPossibleMoves(byte[][] field, byte PieceCoords)
++ boolean IsMovePossible(byte[][] field, byte PieceCoords, byte SquareCoords)
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte Color, boolean check)
+}
+class Pawn{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorPawn, boolean check)
+- void IsPromotion(byte[][] field, byte SquareId)
+- boolean IsEnPassant(byte[][] field, byte colorPawn, byte SquareId)
+}
+class Knight{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorKnight, boolean check)
+}
+class Bishop{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorBishop, boolean check)
+}
+class Rook{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorRook, boolean check)
+}
+class Queen{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorQueen, boolean check)
+}
+class King{
++ LinkedList<Byte> FindPossibleMovesItem(byte[][] field, byte PieceCoords, byte colorKing, boolean check)
+- boolean IsCastle(byte[][] field, byte whereIsCastleJ, byte colorKing)
+}
+
+Game *--> Position
+Game o--> Board
+Position *--> Board
+Position <--> Board
+Board o--> Piece
+Piece <|-- Pawn:Extends
+Piece <|-- Knight:Extends
+Piece <|-- Bishop:Extends
+Piece <|-- Rook:Extends
+Piece <|-- Queen:Extends
+Piece <|-- King:Extends
+
+@enduml
