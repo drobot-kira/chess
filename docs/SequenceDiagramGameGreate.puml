@@ -1,0 +1,30 @@
+﻿@startuml
+
+title "Game greate"
+
+actor User
+participant Client
+participant Server
+database Database
+
+activate User #lightblue
+User -> Client: Сonnecting to the game
+activate Client #lightblue
+Client -> Server: UsenId
+activate Server #lightblue
+Server -> Database: Request
+activate Database #lightblue
+Database --> Server: List of game
+Server --> Client: List of game
+Client --> User: List of game
+
+User -> Client: Click button
+Client -> Server: GameId, UsenId
+Server -> Database: GameId, UsenId, Field
+deactivate Database
+Server --> Client: Field
+deactivate Server
+Client --> User: Position(Game, Stante)
+deactivate Client
+
+@enduml

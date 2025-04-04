@@ -1,0 +1,32 @@
+﻿@startuml
+
+title "Square clicked"
+
+actor User
+participant Client
+participant Server
+database Database
+
+activate User #lightblue
+User -> Client: Click button
+activate Client #lightblue
+Client -> Server: SquareId
+activate Server #lightblue
+Server -> Database: GameID
+activate Database #lightblue
+Database --> Server: Field, WhiteId
+
+alt Game continue
+    Server --> Client: Field
+    Client --> User: Position
+else The game is ended
+    Server -> Database: GameId
+    deactivate Database
+    Server --> Client: The game is ended
+    deactivate Server
+    Client --> User: The game is ended
+    deactivate Client
+end
+
+@enduml
+
