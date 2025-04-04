@@ -1,0 +1,31 @@
+﻿@startuml
+
+title "Sign up"
+
+!pragma useVerticalIf on
+start
+:The user enters the required data;
+note left: Username, password, password (again)
+:User clicks "Sign up";
+
+if(Fields filled in) then (true)
+    if(The repeated password \nmatches the regular one) then (true)
+        if(Username is unique) then (true)
+            :Writing data to the database;
+            :Redirecting the user \nto the main menu;
+        else(false)
+            :Display a message that the \nusername is already taken;
+        endif
+    else(false)
+        :Display a message that the \npasswords do not match;
+    endif
+else(false)
+    :Display message \nabout empty fields;
+endif
+stop
+
+
+
+
+
+@enduml
