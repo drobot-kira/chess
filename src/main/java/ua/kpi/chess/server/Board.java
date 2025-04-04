@@ -26,13 +26,16 @@ public class Board
         for (byte possibleMoveCoord : possibleMoves) {
             byte fieldI = (byte) (possibleMoveCoord / 10);
             byte fieldJ = (byte) (possibleMoveCoord % 10);
-            if (fieldI >= 0 && fieldI < field.length && fieldJ >= 0 && fieldJ < field[fieldI].length) {
-                field[fieldI][fieldJ] *= -1;        }
+            field[fieldI][fieldJ] *= -1;
         }
-        field[SquareId / 10][SquareId % 10] += 100;
+        if (SquareId > 0)
+        {
+            field[SquareId / 10][SquareId % 10] += 100;
+        }
+
         return field;
     }
-    public static byte IsThereAMarkedPiece(byte[][]  field)
+    public static byte IsThereAMarkedPiece(byte[][] field)
     {
         for(int i = 0; i < 8; i++)
         {
