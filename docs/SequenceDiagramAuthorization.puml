@@ -1,0 +1,29 @@
+﻿@startuml
+
+title "Authorization"
+
+actor User
+participant Server
+database Database
+
+activate User #lightblue
+User -> Server: Name, Password
+
+alt Empty input
+    activate Server #lightblue
+    Server --> User: Empty input error
+else Not empty input
+    alt Incorrect name on password
+        Server -> Database: Name, Password
+        activate Database #lightblue
+        Database --> Server: Incorrect log in
+        Server --> User: Wrong name or password
+    else Correct name and password
+        Database --> Server: Correct log in
+        deactivate Database
+        Server --> User: Successfull loged in
+        deactivate Server
+    end
+end
+
+@enduml
