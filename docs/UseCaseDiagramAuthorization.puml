@@ -1,0 +1,32 @@
+﻿@startuml
+
+left to right direction
+
+title "Authorization"
+together {
+actor first as "unauthorized user"
+actor second as "authorized user"
+}
+
+usecase "Sign up"
+usecase "Log in"
+usecase "Spectate"
+usecase "Choose room"
+usecase "Search for an opponent"
+usecase "Select mode"
+usecase "Create room"
+usecase "Start game"
+
+second --> "Spectate"
+second --> "Search for an opponent"
+first --> "Sign up"
+first --> "Log in"
+"Sign up" --> "Log in" : include
+"Log in" --> "Spectate"
+"Log in" --> "Search for an opponent"
+"Spectate" --> "Choose room"
+"Select mode" ..> "Search for an opponent": extends
+"Search for an opponent" --> "Create room"
+"Search for an opponent" --> "Start game"
+
+@enduml
