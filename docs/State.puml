@@ -1,0 +1,24 @@
+﻿@startuml
+
+[*] --> WhitesTurn
+BlacksTurn --> WhitesTurn : Black moves
+WhitesTurn --> BlacksTurn : White moves
+BlacksTurn --> BlackWins : Checkmate
+WhitesTurn --> Draw
+WhitesTurn --> WhiteWins : Checkmate
+BlacksTurn --> Draw
+
+Draw : Agreed draw
+Draw : Stalemate
+Draw : Insufficient material
+Draw : Threefold repetition
+Draw : Seventy move rule
+
+
+
+WhitesTurn --> BlackWins : Forfeit
+BlacksTurn --> WhiteWins : Forfeit
+Draw --> [*]
+BlackWins --> [*]
+WhiteWins --> [*]
+@enduml
