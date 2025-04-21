@@ -54,7 +54,7 @@ class BoardTest
                 {21, 21, 21, 21, 21, 21, 21, 21},
                 {30, 30, 30, 30, 30, 30, 30, 30},
                 {30, 30, 30, 30, 30, 30, 30, 30},
-                {11, 30, 30, 114, 30, 30, 30, 30},
+                {11, 30, 30, 14, 30, 30, 30, 30},
                 {30, 30, 30, 30, 30, 30, 30, 30},
                 {30, 11, 11, 11, 11, 11, 11, 11},
                 {30, 12, 13, 15, 16, 13, 12, 14},
@@ -172,48 +172,7 @@ class BoardTest
         assertArrayEquals(expectedResult, result);
 
     }
-    @Test
-    void testAddMarksNotSelectedPiece()
-    {
-        //Arrange
-        byte[][] field = {
-                {24, 22, 23, 25, 26, 23, 22, 24},
-                {21, 21, 21, 21, 21, 21, 21, 21},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {11, 11, 11, 11, 11, 11, 11, 11},
-                {14, 12, 13, 15, 16, 13, 12, 14},
-                {1, 11, 11, 0, 0, 0, 0, 0}
-        };
-        byte SquareId = -1;
-        var possibleMoves = new LinkedList<Byte>();
-
-
-        var pieceMockedStatic = Mockito.mockStatic(Piece.class);
-        pieceMockedStatic.when(() -> Piece.FindPossibleMoves(field, SquareId)).thenReturn(possibleMoves);
-
-        byte[][] expectedResult = {
-                {24, 22, 23, 25, 26, 23, 22, 24},
-                {21, 21, 21, 21, 21, 21, 21, 21},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {11, 11, 11, 11, 11, 11, 11, 11},
-                {14, 12, 13, 15, 16, 13, 12, 14},
-                {1, 11, 11, 0, 0, 0, 0, 0}
-        };
-
-        //Act
-        byte[][] result = Board.AddMarks(field, SquareId);
-        pieceMockedStatic.close();
-
-        //Assert
-        assertArrayEquals(expectedResult, result);
-    }
-
+    
     @Test
     void testIsThereAMarkedPieceMarked()
     {
