@@ -1,14 +1,19 @@
 package ua.kpi.chess.server;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.MockedStatic;
+import org.mockito.Mockito;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.eq;
 
 class BishopTest {
     @Test
-    void testWhiteBishopJustMove() { //test
+    void testWhiteBishopJustMove() {
         //Arrange
         byte[][] field = {
                 {30, 30, 30, 30, 30, 30, 30, 30},
@@ -22,29 +27,16 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 76);
-        correctList.add((byte) 32);
-        correctList.add((byte) 21);
-        correctList.add((byte) 10);
-        correctList.add((byte) 52);
-        correctList.add((byte) 61);
-        correctList.add((byte) 70);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 76, (byte) 32, (byte) 21, (byte) 10, (byte) 52, (byte) 61, (byte) 70, (byte) 34, (byte) 25, (byte) 16, (byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopMoveWithPiece() {
         //Arrange
@@ -60,22 +52,16 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 32);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 32, (byte) 34, (byte) 25, (byte) 16));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopMoveWithEnemy() {
         //Arrange
@@ -91,26 +77,16 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 76);
-        correctList.add((byte) 32);
-        correctList.add((byte) 21);
-        correctList.add((byte) 52);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 76, (byte) 32, (byte) 21, (byte) 52, (byte) 34, (byte) 25, (byte) 16, (byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveRightDownDestroyedEnemy() {
         //Arrange
@@ -126,17 +102,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 77);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 0, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)0), eq((byte)77))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 77));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 0, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveRightDownProtected() {
         //Arrange
@@ -152,17 +128,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 76);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 10, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)10), eq((byte)76))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 76));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 10, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveLeftDownDestroyedEnemy() {
         //Arrange
@@ -178,17 +154,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 70);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 7, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)7), eq((byte)70))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 70));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 7, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveLeftDownProtected() {
         //Arrange
@@ -204,17 +180,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 71);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 17, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)17), eq((byte)71))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 71));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 17, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveRightUpDestroyedEnemy() {
         //Arrange
@@ -230,17 +206,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 70, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)70), eq((byte)7))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 70, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveRightUpProtected() {
         //Arrange
@@ -256,17 +232,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 6);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 60, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)60), eq((byte)6))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 6));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 60, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveLeftUpDestroyedEnemy() {
         //Arrange
@@ -282,17 +258,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 0);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 77, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)77), eq((byte)0))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 0));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 77, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testWhiteBishopWithCheckMoveLeftUpProtected() {
         //Arrange
@@ -308,17 +284,17 @@ class BishopTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 1);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 67, (byte) 1);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)67), eq((byte)1))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 1));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 67, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testBlackBishopJustMove() {
         //Arrange
@@ -334,29 +310,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 76);
-        correctList.add((byte) 32);
-        correctList.add((byte) 21);
-        correctList.add((byte) 10);
-        correctList.add((byte) 52);
-        correctList.add((byte) 61);
-        correctList.add((byte) 70);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 76, (byte) 32, (byte) 21, (byte) 10, (byte) 52, (byte) 61, (byte) 70, (byte) 34, (byte) 25, (byte) 16, (byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testBlackBishopMoveWithPiece() {
         //Arrange
@@ -372,22 +335,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 32);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 32, (byte) 34, (byte) 25, (byte) 16));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
-
     @Test
     void testBlackBishopMoveWithEnemy() {
         //Arrange
@@ -403,24 +360,15 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 54);
-        correctList.add((byte) 65);
-        correctList.add((byte) 76);
-        correctList.add((byte) 32);
-        correctList.add((byte) 21);
-        correctList.add((byte) 52);
-        correctList.add((byte) 34);
-        correctList.add((byte) 25);
-        correctList.add((byte) 16);
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 54, (byte) 65, (byte) 76, (byte) 32, (byte) 21, (byte) 52, (byte) 34, (byte) 25, (byte) 16, (byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 43, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveRightDownDestroyedEnemy() {
@@ -437,15 +385,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 77);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 0, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)0), eq((byte)77))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 77));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 0, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveRightDownProtected() {
@@ -462,15 +411,16 @@ class BishopTest {
                 { 2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 76);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 10, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)10), eq((byte)76))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 76));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 10, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveLeftDownDestroyedEnemy() {
@@ -487,15 +437,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 70);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 7, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)7), eq((byte)70))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 70));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 7, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveLeftDownProtected() {
@@ -512,15 +463,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 71);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 17, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)17), eq((byte)71))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 71));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 17, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
 
     @Test
@@ -538,15 +490,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 7);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 70, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)70), eq((byte)7))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 7));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 70, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveRightUpProtected() {
@@ -563,15 +516,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 6);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 60, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)60), eq((byte)6))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 6));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 60, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveLeftUpDestroyedEnemy() {
@@ -588,15 +542,16 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 0);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 77, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)77), eq((byte)0))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 0));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 77, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
     @Test
     void testBlackBishopWithCheckMoveLeftUpProtected() {
@@ -613,14 +568,15 @@ class BishopTest {
                 {2, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        LinkedList<Byte> correctList = new LinkedList<>();
-        correctList.add((byte) 1);
-
-        LinkedList<Byte> testList;
-        var bishop = new Bishop();
-        //Act
-        testList = bishop.FindPossibleMovesItem(field, (byte) 67, (byte) 2);
-        //Assert
-        assertEquals(correctList, testList);
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(true);
+            pieceMock.when(() -> Piece.IsThereACheck(any(), eq((byte)67), eq((byte)1))).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 1));
+            //Act
+            var bishop = new Bishop();
+            LinkedList<Byte> testList = bishop.FindPossibleMovesItem(field, (byte) 67, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
     }
 }
