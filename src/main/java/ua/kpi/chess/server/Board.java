@@ -28,10 +28,8 @@ public class Board
             byte fieldJ = (byte) (possibleMoveCoord % 10);
             field[fieldI][fieldJ] *= -1;
         }
-        if (SquareId > 0)
-        {
-            field[SquareId / 10][SquareId % 10] += 100;
-        }
+
+        field[SquareId / 10][SquareId % 10] += 100;
 
         return field;
     }
