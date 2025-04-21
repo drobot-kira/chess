@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class BishopTest {
     @Test
-    void testWhiteBishopJustMove() { // test
+    void testWhiteBishopJustMove() { // test1
         //Arrange
         byte[][] field = {
                 {30, 30, 30, 30, 30, 30, 30, 30},
