@@ -1,4 +1,4 @@
-package ua.kpi.chess.game;
+package ua.kpi.chess.server;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -162,7 +162,7 @@ public class Game {
                     }
 
                     byte theEnd = Position.IsGameEnded(fieldCopy);
-                    if (theEnd != 0) // the game is ended
+                    if (theEnd != 0) // the server is ended
                     {
                         byte value = 0;
                         if (Math.abs(theEnd) == 1 || Math.abs(theEnd) == 4) {

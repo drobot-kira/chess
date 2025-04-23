@@ -29,8 +29,8 @@ public class DatabaseHandler extends Configs {
         }
     }
 
-    public Connection getDbConnection() throws ClassNotFoundException, SQLException
-    {
+    public Connection getDbConnection() throws ClassNotFoundException, SQLException, IOException {
+//        initializeDatabase("schema.sql");
 
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" +dbName;
 
@@ -47,7 +47,7 @@ public class DatabaseHandler extends Configs {
             prSt.setString(1, name);
             prSt.setString(2, password);
             prSt.executeUpdate();
-        } catch (SQLException e) {
+        } catch (SQLException | IOException e) {
             throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
@@ -66,7 +66,7 @@ public class DatabaseHandler extends Configs {
             resultSet = prSt.executeQuery();
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        } catch (ClassNotFoundException e) {
+        } catch (ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
         return resultSet;

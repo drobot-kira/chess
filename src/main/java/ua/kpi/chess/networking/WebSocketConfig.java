@@ -1,4 +1,4 @@
-package ua.kpi.chess.websocket;
+package ua.kpi.chess.networking;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,12 +12,12 @@ public class WebSocketConfig implements WebSocketConfigurer {
 
     @Override
     public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
-        registry.addHandler(makeMoveWebSocket(), "/chess").setAllowedOrigins("*");
+        registry.addHandler(controllerWebSocket(), "/chess").setAllowedOrigins("*");
     }
 
     @Bean
-    public MakeMoveWebSocket makeMoveWebSocket() {
-        return new MakeMoveWebSocket();
+    public ControllerWebSocket controllerWebSocket() {
+        return new ControllerWebSocket();
     }
 }
 

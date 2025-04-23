@@ -91,6 +91,6 @@ function SquareClicked(SqId)
     let gameId = 1;
     let userId = 1;
 
-    let message = JSON.stringify({SquareId: squareId, GameId: gameId, UserId: userId});
+    let message = JSON.stringify({Type: "SquareClicked", SquareId: squareId, GameId: gameId, UserId: userId});
     socket.send(message);
 }
