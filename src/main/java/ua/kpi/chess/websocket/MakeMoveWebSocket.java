@@ -1,11 +1,11 @@
-package ua.kpi.chess.networking;
+package ua.kpi.chess.websocket;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.stereotype.Component;
 import org.springframework.web.socket.*;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
-import ua.kpi.chess.server.Game;
+import ua.kpi.chess.game.Game;
 
 @Component
 public class MakeMoveWebSocket extends TextWebSocketHandler {

@@ -1,4 +1,4 @@
-package ua.kpi.chess.server;
+package ua.kpi.chess.game;
 
 public class Position {
 

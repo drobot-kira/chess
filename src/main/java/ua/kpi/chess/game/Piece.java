@@ -1,4 +1,4 @@
-package ua.kpi.chess.server;
+package ua.kpi.chess.game;
 
 import java.util.LinkedList;
 
