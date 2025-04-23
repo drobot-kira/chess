@@ -23,6 +23,16 @@ public class Authorization {
     }
 
     public static byte SignUp(String name, String password) {
-        return 1;
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        ResultSet result = dbHandler.getUser(name);
+        try {
+            if (result.next()) {
+                return -1;
+            }
+            dbHandler.AddUser(name, password);
+            return 1;
+        } catch (Exception e) {
+            return 0;
+        }
     }
 }
