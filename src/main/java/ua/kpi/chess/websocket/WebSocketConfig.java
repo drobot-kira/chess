@@ -1,4 +1,4 @@
-package ua.kpi.chess.networking;
+package ua.kpi.chess.websocket;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
