@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Зареєструватись</title>
-    <link rel="stylesheet" href="/styles/sign-up.css">
+    <title>Увійти</title>
+    <link rel="stylesheet" href="/styles/log-in.css">
 </head>
 <body>
     <header class="header">
         <h1 class="title">
-            <a class="title__link" href="/pages/authorization/index.html">Шахи</a>
+            <a class="title__link" href="/chess/authorization/index.html">Шахи</a>
         </h1>
     </header>
     <form class="form">
@@ -19,17 +19,12 @@
         </div>
         <div class="input-container">
             <label class="input-container__label">Пароль:</label>
-            <input type="password" id="password" class="input-container__input">
-        </div>
-        <div class="input-container">
-            <label class="input-container__label">Пароль (ще раз):</label>
-            <input type="password" id="password_again" class="input-container__input">
+        <input type="password" id="password" class="input-container__input">
         </div>
         <div class="form__warning" id="warning">
-
         </div>
-        <button class="form__button" type="submit">Зареєструватись</button>
+        <button class="form__button" type="submit">Увійти</button>
     </form>
-    <script src="/scripts/SignUpScript.js"></script>
+    <script src="/scripts/LogInScript.js"></script>
 </body>
 </html>
