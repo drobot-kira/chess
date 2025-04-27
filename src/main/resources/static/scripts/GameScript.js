@@ -78,7 +78,7 @@ socket.onmessage = function (event)
                 squareColor = "white";
             }
 
-            let image = "url('../../images/pieces/" + type + "_" + pieceColor + squareColor + move + ".png')";
+            let image = "url('/images/pieces/" + type + "_" + pieceColor + squareColor + move + ".png')";
             document.getElementById(i*10+j).style.backgroundImage = image;
             document.getElementById(i*10+j).style.backgroundSize = "cover";
         }
