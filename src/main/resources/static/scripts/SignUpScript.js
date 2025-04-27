@@ -1,5 +1,6 @@
 ﻿let socket = new WebSocket("ws://localhost:8080/chess");
 document.querySelector(".form").addEventListener("submit", SignUp)
+let name;
 
 socket.onmessage = function (event)
 {
@@ -11,6 +12,8 @@ socket.onmessage = function (event)
     else if (output > 0)
     {
         document.getElementById("warning").innerText = "Реєстрація успішна.";
+        localStorage.setItem("username", name);
+        window.location.href = '/index.html';
     }
     else
     {
@@ -21,7 +24,7 @@ socket.onmessage = function (event)
 function SignUp(event)
 {
     event.preventDefault();
-    let name = document.getElementById("name").value;
+    name = document.getElementById("name").value;
     let password = document.getElementById("password").value;
     let passwordAgain = document.getElementById("password_again").value;
 
