@@ -19,3 +19,12 @@ CREATE TABLE IF NOT EXISTS Game(
     FOREIGN KEY (blackName) REFERENCES User(name),
     FOREIGN KEY (spectatorName) REFERENCES User(name)
 );
+
+CREATE TABLE IF NOT EXISTS PositionTable(
+	gameId INT,
+	position VARCHAR(255),
+    repeatCounter TINYINT,
+    PRIMARY KEY (gameId, position),
+    FOREIGN KEY (gameId) REFERENCES Game(gameId)
+);
+SELECT * FROM PositionTable;
