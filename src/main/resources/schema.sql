@@ -27,4 +27,3 @@ CREATE TABLE IF NOT EXISTS PositionTable(
     PRIMARY KEY (gameId, position),
     FOREIGN KEY (gameId) REFERENCES Game(gameId)
 );
-SELECT * FROM PositionTable;
