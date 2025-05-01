@@ -93,5 +93,18 @@ public class DatabaseHandler extends Configs {
 
         return moves;
     }
+
+    public void writeMoves(int GameId, String value){
+        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'"+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(query);
+            prSt.setInt(1, GameId);
+            prSt.executeUpdate();
+
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }
 
