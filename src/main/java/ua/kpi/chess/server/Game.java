@@ -29,8 +29,6 @@ public class Game {
         DatabaseHandler dbFieldString = new DatabaseHandler();
         String fieldString = dbFieldString.getMoves(GameId);
 
-        //e2-e4 e7-e5 g1-f3 f7-f5 *a3 b3 c3 d3 e3 *e4
-
         int index = 0;
         while(fieldString.charAt(index) != '*'){
             byte iPrev = (byte)(8 - (byte)(fieldString.charAt(index + 1)) + '0');
@@ -38,9 +36,8 @@ public class Game {
             byte iNext = (byte)(8 - (byte)(fieldString.charAt(index + 4)) + '0');
             byte jNext = (byte)((byte)(fieldString.charAt(index + 3)) - 97);
 
-            byte byf = field[iNext][jNext];
             field[iNext][jNext] = field[iPrev][jPrev];
-            field[iPrev][jPrev] = byf;
+            field[iPrev][jPrev] = 30;
 
             index += 6;
         }
@@ -81,11 +78,58 @@ public class Game {
                 {11, 11, 11, 11, 11, 11, 11, 11},
                 {14, 12, 13, 15, 16, 13, 12, 14},
                 {1, 11, 11, 0, 0, 0, 0, 0}};
-        writeMove(1, field);
+        writeMove(1, field, (byte)1, (byte)1);   //тут нада виправити
     }
 
-    private void writeMove(int GameId, byte[][] field ) {
+    public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SqureCoords ) {
+        DatabaseHandler dbFieldString = new DatabaseHandler();
+        String fieldString = dbFieldString.getMoves(GameId);
+        String newFieldString = "";
 
+        for(int i = 0; i < fieldString.length(); i++){
+            if(fieldString.charAt(i) == '*'){
+                break;
+            }
+
+            newFieldString += fieldString.charAt(i);
+        }
+
+        byte iCoords = (byte)(8 - PieceCoords/10);
+        char jCoords = (char)(PieceCoords%10 + 97);
+        newFieldString += jCoords;
+        newFieldString += iCoords;
+
+        newFieldString += "-";
+
+        iCoords = (byte)(8 - SqureCoords/10);
+        jCoords = (char)(SqureCoords%10 + 97);
+        newFieldString += jCoords;
+        newFieldString += iCoords;
+
+        newFieldString += " *";
+
+        String byf = "";
+        for(byte i = 0; i < field.length; i++){
+            for(byte j = 0; j < field[i].length; j++){
+                if(field[i][j] < 0){
+                    iCoords = (byte)(8 - i);
+                    jCoords = (char)(j + 97);
+                    newFieldString += jCoords;
+                    newFieldString += iCoords + " ";
+                }
+                else if(field[i][j] > 100){
+                    iCoords = (byte)(8 - i);
+                    jCoords = (char)(j + 97);
+                    byf += jCoords;
+                    byf += iCoords;
+                }
+            }
+        }
+
+        newFieldString += "*" + byf;
+
+        DatabaseHandler dbUpdateFieldString = new DatabaseHandler();
+        dbUpdateFieldString.writeMoves(GameId, newFieldString);
     }
 
     public byte[][] SquareClicked(int GameId, byte SquareId, int UserId) {
@@ -214,7 +258,7 @@ public class Game {
             }
         }
 
-        writeMove(GameId, field);
+        writeMove(GameId, field, (byte)1, (byte)1); //тут нада виправити
 
         return field;
     }
