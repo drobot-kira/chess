@@ -71,5 +71,27 @@ public class DatabaseHandler extends Configs {
         }
         return resultSet;
     }
+
+    public String getMoves(int GameId){
+        String query = "SELECT " + Const.GAME_MOVES + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " =?";
+
+        ResultSet resultSet = null;
+        String moves = null;
+
+        try {
+            PreparedStatement prSt = getDbConnection().prepareStatement(query);
+            prSt.setInt(1, GameId);
+            resultSet = prSt.executeQuery();
+
+            if (resultSet.next()) {
+                moves = resultSet.getString(Const.GAME_MOVES);
+            }
+
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return moves;
+    }
 }
 

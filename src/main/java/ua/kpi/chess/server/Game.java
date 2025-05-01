@@ -1,35 +1,69 @@
 package ua.kpi.chess.server;
 
+import ua.kpi.chess.databaseinteraction.Const;
+import ua.kpi.chess.databaseinteraction.DatabaseHandler;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.*;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Game {
-    private byte[][] getField(int GameId) {
-        File file = new File("src/main/java/ua/kpi/chess/server/field.txt");
 
-        List<byte[]> matrixList = new ArrayList<>();
+    public byte[][] getField(int GameId) {
+        byte[][] field = {
+            {24, 22, 23, 25, 26, 23, 22, 24},
+            {21, 21, 21, 21, 21, 21, 21, 21},
+            {30, 30, 30, 30, 30, 30, 30, 30},
+            {30, 30, 30, 30, 30, 30, 30, 30},
+            {30, 30, 30, 30, 30, 30, 30, 30},
+            {30, 30, 30, 30, 30, 30, 30, 30},
+            {11, 11, 11, 11, 11, 11, 11, 11},
+            {14, 12, 13, 15, 16, 13, 12, 14},
+            { 1, 11, 11,  0,  0,  0,  0,  0}};
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(
-                "src/main/java/ua/kpi/chess/server/field.txt"))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                String[] numbers = line.trim().split("\\s+"); // Розбиваємо по пробілах
-                byte[] row = new byte[numbers.length];
-                for (int i = 0; i < numbers.length; i++) {
-                    row[i] = Byte.parseByte(numbers[i]); // Конвертуємо у byte
-                }
-                matrixList.add(row);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        DatabaseHandler dbFieldString = new DatabaseHandler();
+        String fieldString = dbFieldString.getMoves(GameId);
+
+        //e2-e4 e7-e5 g1-f3 f7-f5 *a3 b3 c3 d3 e3 *e4
+
+        int index = 0;
+        while(fieldString.charAt(index) != '*'){
+            byte iPrev = (byte)(8 - (byte)(fieldString.charAt(index + 1)) + '0');
+            byte jPrev = (byte)((byte)(fieldString.charAt(index)) - 97);
+            byte iNext = (byte)(8 - (byte)(fieldString.charAt(index + 4)) + '0');
+            byte jNext = (byte)((byte)(fieldString.charAt(index + 3)) - 97);
+
+            byte byf = field[iNext][jNext];
+            field[iNext][jNext] = field[iPrev][jPrev];
+            field[iPrev][jPrev] = byf;
+
+            index += 6;
         }
 
-        return matrixList.toArray(new byte[0][]);
+        index++;
+        while(fieldString.charAt(index) != '*'){
+            byte iCurrent = (byte)(8 - (byte)(fieldString.charAt(index + 1)) + '0');
+            byte jCurrent = (byte)((byte)(fieldString.charAt(index)) - 97);
+
+            field[iCurrent][jCurrent] = (byte)(field[iCurrent][jCurrent] * -1);
+
+            index += 3;
+        }
+
+        index++;
+        if(fieldString.charAt(index) != '*'){
+            byte iCurrent = (byte)(8 - (byte)(fieldString.charAt(index + 1)) + '0');
+            byte jCurrent = (byte)((byte)(fieldString.charAt(index)) - 97);
+
+            field[iCurrent][jCurrent] += 100;
+        }
+
+        return field;
     }
 
     private int getWhiteId(int GameId) {
@@ -50,19 +84,8 @@ public class Game {
         writeMove(1, field);
     }
 
-    private void writeMove(int GameId, byte[][] field) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter
-                ("src/main/java/ua/kpi/chess/server/field.txt"))) {
-            for (byte[] row : field) {
-                for (byte num : row) {
-                    writer.write(num + " ");
-                }
-                writer.newLine();
-            }
-            writer.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    private void writeMove(int GameId, byte[][] field ) {
+
     }
 
     public byte[][] SquareClicked(int GameId, byte SquareId, int UserId) {
