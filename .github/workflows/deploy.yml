@@ -1,9 +1,7 @@
 ﻿name: Tag and Deploy
 
 on:
-  push:
-    branches:
-      - main
+  [push]
 
 jobs:
   tag-and-deploy:
