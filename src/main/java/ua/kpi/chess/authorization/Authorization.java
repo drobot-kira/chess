@@ -8,7 +8,7 @@ public class Authorization {
     public static byte LogIn(String name, String password) {
         try {
             DatabaseHandler dbHandler = new DatabaseHandler();
-            ResultSet result = dbHandler.getUser(name);
+            ResultSet result = dbHandler.GetUser(name);
             if(result.next()){
                 String correctPassword = result.getString("password");
                 if(password.equals(correctPassword)){
@@ -24,7 +24,7 @@ public class Authorization {
 
     public static byte SignUp(String name, String password) {
         DatabaseHandler dbHandler = new DatabaseHandler();
-        ResultSet result = dbHandler.getUser(name);
+        ResultSet result = dbHandler.GetUser(name);
         try {
             if (result.next()) {
                 return -1;
