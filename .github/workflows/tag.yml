@@ -1,19 +1,74 @@
-﻿name: Bump version and tag
+﻿name: Tag and Deploy
 
 on:
-  [push]
+  push:
+    branches:
+      - main
 
 jobs:
-  tag:
+  tag-and-deploy:
     runs-on: ubuntu-latest
+
+    permissions:
+      contents: write
+      packages: write
 
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Tag new version
-        id: tag_version
-        uses: mathieudutour/github-tag-action@v6.2
+      - name: Set up JDK
+        uses: actions/setup-java@v3
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          default_bump: patch
+          java-version: '23'
+          distribution: 'temurin'
+
+      - name: Set up Git identity
+        run: |
+          git config user.name "${{ github.actor }}"
+          git config user.email "${{ github.actor }}@users.noreply.github.com"
+
+      - name: Extract version from last tag and increment
+        id: get-version
+        run: |
+          latest=$(git tag --sort=-v:refname | grep '^v' | head -n1)
+          echo "Latest tag: $latest"
+          if [[ -z "$latest" ]]; then
+            version="1.0.0"
+          else
+            base=$(echo "$latest" | sed 's/^v//')
+            major=$(echo "$base" | cut -d. -f1)
+            minor=$(echo "$base" | cut -d. -f2)
+            patch=$(echo "$base" | cut -d. -f3)
+            version="$major.$minor.$((patch + 1))"
+          fi
+          echo "New version: $version"
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Update POM version
+        run: mvn versions:set -DnewVersion=${{ steps.get-version.outputs.version }}
+
+      - name: Commit version bump
+        run: |
+          git commit -am "Release v${{ steps.get-version.outputs.version }}"
+          git tag v${{ steps.get-version.outputs.version }}
+          git push origin HEAD
+          git push origin v${{ steps.get-version.outputs.version }}
+
+      - name: Configure Maven credentials
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${GITHUB_ACTOR}</username>
+                <password>${{ secrets.GH_PACKAGES_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>" > ~/.m2/settings.xml
+
+      - name: Deploy to GitHub Packages
+        run: mvn deploy
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
