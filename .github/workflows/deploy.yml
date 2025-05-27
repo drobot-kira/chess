@@ -24,14 +24,11 @@ jobs:
             <servers>
               <server>
                 <id>github</id>
-                <username>${GITHUB_ACTOR}</username>
-                <password>${GITHUB_TOKEN}</password>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GH_PACKAGES_TOKEN  }}</password>
               </server>
             </servers>
           </settings>" > ~/.m2/settings.xml
 
       - name: Deploy package
         run: mvn deploy
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
-          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN  }}
