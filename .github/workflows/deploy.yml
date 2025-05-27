@@ -32,21 +32,37 @@ jobs:
           latest=$(git tag --sort=-v:refname | grep '^v' | head -n1)
           echo "Latest tag: $latest"
           if [[ -z "$latest" ]]; then
-            version="1.0.0"
+            major=1; minor=0; patch=0
           else
             base=$(echo "$latest" | sed 's/^v//')
             major=$(echo "$base" | cut -d. -f1)
             minor=$(echo "$base" | cut -d. -f2)
             patch=$(echo "$base" | cut -d. -f3)
-            version="$major.$minor.$((patch + 1))"
           fi
+
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+
+          if echo "$COMMIT_MSG" | grep -iq "#major"; then
+            major=$((major + 1))
+            minor=0
+            patch=0
+          elif echo "$COMMIT_MSG" | grep -iq "#minor"; then
+            minor=$((minor + 1))
+            patch=0
+          elif echo "$COMMIT_MSG" | grep -iq "#patch"; then
+            patch=$((patch + 1))
+          else
+            patch=$((patch + 1))  # За замовчуванням — patch
+          fi
+
+          version="$major.$minor.$patch"
           echo "New version: $version"
           echo "version=$version" >> $GITHUB_OUTPUT
 
       - name: Update POM version
         run: mvn versions:set -DnewVersion=${{ steps.get-version.outputs.version }}
 
-      - name: Commit version bump
+      - name: Commit version bump and tag
         run: |
           git commit -am "Release v${{ steps.get-version.outputs.version }}"
           git tag v${{ steps.get-version.outputs.version }}
