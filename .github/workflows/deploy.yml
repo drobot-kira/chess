@@ -1,69 +1,33 @@
-﻿name: Tag and Deploy
+﻿name: Deploy to GitHub Packages
 
 on:
   push:
-    branches:
-      - '**'
+    tags:
+      - 'v*'
 
 jobs:
-  tag-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
-
-    permissions:
-      contents: write
-      packages: write
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-        with:
-          fetch-depth: 0  # щоб бачити всі теги
+        uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
+      - name: Set up Java
+        uses: actions/setup-java@v4
         with:
-          java-version: '23'
           distribution: 'temurin'
+          java-version: '23'
+          server-id: github
+          settings-path: ${{ github.workspace }}
 
-      - name: Extract version from last tag and increment
-        id: get-version
+      - name: Set version from tag
         run: |
-          latest=$(git tag --sort=-v:refname | grep '^v' | head -n1)
-          echo "Latest tag: $latest"
-          if [[ -z "$latest" ]]; then
-            major=1; minor=0; patch=0
-          else
-            base=$(echo "$latest" | sed 's/^v//')
-            major=$(echo "$base" | cut -d. -f1)
-            minor=$(echo "$base" | cut -d. -f2)
-            patch=$(echo "$base" | cut -d. -f3)
-          fi
+          VERSION="${GITHUB_REF##*/}"
+          mvn versions:set -DnewVersion=${VERSION#v}
+          mvn versions:commit
 
-          COMMIT_MSG=$(git log -1 --pretty=%B)
-
-          if echo "$COMMIT_MSG" | grep -iq "#major"; then
-            major=$((major + 1))
-            minor=0
-            patch=0
-          elif echo "$COMMIT_MSG" | grep -iq "#minor"; then
-            minor=$((minor + 1))
-            patch=0
-          elif echo "$COMMIT_MSG" | grep -iq "#patch"; then
-            patch=$((patch + 1))
-          else
-            patch=$((patch + 1))
-          fi
-
-          version="$major.$minor.$patch"
-          echo "version=$version" >> $GITHUB_OUTPUT
-
-      - name: Set up Maven settings for GitHub Packages
-        run: |
-          mkdir -p ~/.m2
-          echo "<settings>
-            <servers>
-              <server>
-                <id>github</id>
-                <username>${GITHUB_ACTOR}</username>
-                <password>${{ secrets.GH_PACKAGES_TOKEN }}</password>
-              </server>
+      - name: Deploy to GitHub Packages
+        run: mvn deploy --settings ${{ github.workspace }}/settings.xml
+        env:
+          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
