@@ -316,5 +316,24 @@ public class DatabaseHandler extends Configs {
 
         return true;
     }
+
+    public int GetRepeatCounter(int gameId, String position){
+        String select = "SELECT " + Const.POSITION_REPEATCOUNTER + " FROM " + Const.POSITION_TABLE + " WHERE " + Const.POSITION_POSITION + " = ? AND " + Const.POSITION_GAMEID + " = ?";
+
+        int repeatCounter = -1;
+        try{
+            PreparedStatement prSt = GetDbConnection().prepareStatement(select);
+            prSt.setString(1, position);
+            prSt.setInt(2, gameId);
+            ResultSet rs = prSt.executeQuery();
+            if (rs.next()) {
+                repeatCounter = rs.getInt("repeatCounter");
+            }
+        }
+        catch(SQLException | ClassNotFoundException | IOException e){
+            throw new RuntimeException(e);
+        }
+        return repeatCounter;
+    }
 }
 
