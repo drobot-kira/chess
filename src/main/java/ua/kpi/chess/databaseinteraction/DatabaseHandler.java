@@ -263,5 +263,37 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
     }
+    public byte StertGame(int gameId, String UserName){
+        ResultSet resultSet = null;
+        String WhiteName = null;
+        String BlackName = null;
+        try {
+            resultSet = GetGame(gameId);
+            if (resultSet.next()) {
+                WhiteName = resultSet.getString(Const.GAME_WHITENAME);
+                BlackName = resultSet.getString(Const.GAME_BLACKNAME);
+            }
+            else{
+                return -2;
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if(WhiteName.equals(UserName)){
+            return -1;
+        }else if(!BlackName.equals(UserName)){
+            return 0;
+        }
+
+        var random = new Random();
+        byte colorWhite = 2;//(byte)random.nextInt(1, 3);
+        if(colorWhite == 1){
+            UpdateUsers(gameId, WhiteName, UserName);
+        }else{
+            UpdateUsers(gameId, UserName, WhiteName);
+        }
+
+        return colorWhite;
+    }
 }
 
