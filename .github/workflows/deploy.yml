@@ -19,8 +19,6 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '23'
-          server-id: github
-          settings-path: ${{ github.workspace }}
 
       - name: Set version from tag
         run: |
@@ -28,7 +26,19 @@ jobs:
           mvn versions:set -DnewVersion=${VERSION#v}
           mvn versions:commit
 
+      - name: Create settings.xml for GitHub Packages
+        run: |
+          cat > ~/.m2/settings.xml <<EOF
+          <settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${{ github.actor }}</username>
+                <password>${{ secrets.GH_PACKAGES_TOKEN }}</password>
+              </server>
+            </servers>
+          </settings>
+          EOF
+
       - name: Deploy to GitHub Packages
-        run: mvn deploy --settings ${{ github.workspace }}/settings.xml
-        env:
-          GH_PACKAGES_TOKEN: ${{ secrets.GH_PACKAGES_TOKEN }}
+        run: mvn deploy
