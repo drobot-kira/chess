@@ -27,3 +27,11 @@ CREATE TABLE IF NOT EXISTS PositionTable(
     PRIMARY KEY (gameId, position),
     FOREIGN KEY (gameId) REFERENCES Game(gameId)
 );
+
+CREATE TABLE IF NOT EXISTS Spectator(
+gameId INT,
+spectatorName VARCHAR(100),
+ FOREIGN KEY (gameId) REFERENCES Game(gameId),
+ FOREIGN KEY (spectatorName) REFERENCES User(name),
+ PRIMARY KEY(gameId, spectatorName)
+);
