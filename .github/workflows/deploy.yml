@@ -1,4 +1,4 @@
-﻿name: Deploy to GitHub Packages
+name: Deploy to GitHub Packages
 
 on:
   workflow_run:
