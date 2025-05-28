@@ -13,6 +13,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Java
         uses: actions/setup-java@v4
@@ -20,9 +22,20 @@ jobs:
           distribution: 'temurin'
           java-version: '23'
 
+      - name: Fetch tags
+        run: git fetch --tags
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          TAG=$(git describe --tags `git rev-list --tags --max-count=1`)
+          echo "tag=$TAG"
+          echo "tag=$TAG" >> $GITHUB_OUTPUT
+
       - name: Set version from tag
         run: |
-          VERSION="${GITHUB_REF##*/}"
+          VERSION=${{ steps.get_tag.outputs.tag }}
+          echo "Using tag version: $VERSION"
           mvn versions:set -DnewVersion=${VERSION#v}
           mvn versions:commit
 
@@ -30,13 +43,6 @@ jobs:
         run: |
           VERSION="${GITHUB_REF##*/}"
           PARSED_VERSION="${VERSION#v}"
-
-          echo "GITHUB_REF: $GITHUB_REF"
-          echo "Parsed version from tag: $PARSED_VERSION"
-          echo "Maven coordinates:"
-          echo -n "  groupId = "; mvn help:evaluate -Dexpression=project.groupId -q -DforceStdout
-          echo -n "  artifactId = "; mvn help:evaluate -Dexpression=project.artifactId -q -DforceStdout
-          echo -n "  version = "; mvn help:evaluate -Dexpression=project.version -q -DforceStdout
 
       - name: Create settings.xml for GitHub Packages
         run: |
