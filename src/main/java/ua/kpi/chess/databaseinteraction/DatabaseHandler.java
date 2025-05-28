@@ -295,5 +295,26 @@ public class DatabaseHandler extends Configs {
 
         return colorWhite;
     }
+    public boolean EndGame(int gameId, int result){
+        String deleteCounter = "DELETE FROM " + Const.POSITION_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateSpectator = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_SPECTATORNAME + " = " + "NULL" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateResult = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_RESULT + " = " + "'" + result + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String deleteSpectator = "DELETE FROM " + Const.SPECTATOR_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+
+        try{
+            PreparedStatement stmtCounter =  GetDbConnection().prepareStatement(deleteCounter);
+            PreparedStatement stmtSpectator =  GetDbConnection().prepareStatement(updateSpectator);
+            PreparedStatement stmtResult =  GetDbConnection().prepareStatement(updateResult);
+            PreparedStatement stmtDeleteSpectator =  GetDbConnection().prepareStatement(deleteSpectator);
+            stmtCounter.executeUpdate();
+            stmtSpectator.executeUpdate();
+            stmtResult.executeUpdate();
+            stmtDeleteSpectator.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return true;
+    }
 }
 
