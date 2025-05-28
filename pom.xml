@@ -13,7 +13,7 @@
 
     <groupId>ua.kpi.chess</groupId>
     <artifactId>chess</artifactId>
-    <version>${revision}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <name>chess</name>
 
     <properties>
