@@ -1,9 +1,10 @@
-﻿name: Deploy to GitHub Packages
+name: Deploy to GitHub Packages
 
 on:
-  push:
-    tags:
-      - 'v*'
+  workflow_run:
+    workflows: [ "Version and Tag" ]
+    types:
+      - completed
 
 jobs:
   deploy:
