@@ -348,5 +348,19 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
     }
+
+    public void InsertPosition(int gameId, String position){
+        String insert = "INSERT INTO " + Const.POSITION_TABLE + " (" + Const.POSITION_GAMEID + ", " + Const.POSITION_POSITION + ", " + Const.POSITION_REPEATCOUNTER + ") VALUES (?, ?, 1)";
+        try{
+            PreparedStatement prSt = GetDbConnection().prepareStatement(insert);
+            prSt.setInt(1, gameId);
+            prSt.setString(2, position);
+            prSt.executeUpdate();
+        }
+        catch(SQLException | ClassNotFoundException | IOException e){
+            throw new RuntimeException(e);
+        }
+
+    }
 }
 
