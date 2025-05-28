@@ -15,6 +15,9 @@ public class Const {
     public static final String GAME_SPECTATORNAME = "spectatorName";
 
     public static final String POSITION_TABLE = "positiontable";
+    public static final String POSITION_GAMEID = "gameId";
+    public static final String POSITION_POSITION = "position";
+    public static final String POSITION_REPEATCOUNTER = "repeatCounter";
 
     public static final String SPECTATOR_TABLE = "spectator";
     public static final String SPECTATOR_GAMEID = "gameId";
