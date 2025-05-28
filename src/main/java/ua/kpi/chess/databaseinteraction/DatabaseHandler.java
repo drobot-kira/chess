@@ -7,6 +7,7 @@ import java.nio.charset.StandardCharsets;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
@@ -187,6 +188,80 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
         return true;
+    }
+
+    private boolean IsIdenticalGameId(int gameId){
+        String query = "SELECT " + Const.GAME_GAMEID + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + "= ?";
+
+        try (PreparedStatement stmt =  GetDbConnection().prepareStatement(query)) {
+            stmt.setLong(1, gameId);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void CreateGame(String userName, String type){
+        ResultSet resultSet = null;
+        String bye = null;
+        try {
+            resultSet = GetUser("bye");
+            if(resultSet.next()){
+                bye = resultSet.getString(Const.USER_NAME);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        if(bye.equals(null)){
+            AddUser("bye", "");
+        }
+
+        var random = new Random();
+        int gameId = random.nextInt(0,1000000);
+        while(IsIdenticalGameId(gameId)){
+            gameId += random.nextInt(0, 1000000);
+        }
+
+        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_GAMEID + "," + Const.GAME_WHITENAME + "," + Const.GAME_BLACKNAME + "," + Const.GAME_TYPE+ ")" + "VALUES(?,?,?,?)";
+        try {
+            PreparedStatement prSt = GetDbConnection().prepareStatement(insert);
+            prSt.setInt(1, gameId);
+            prSt.setString(2, userName);
+            prSt.setString(3, "bye");
+            prSt.setString(4, type);
+            prSt.executeUpdate();
+        } catch (SQLException | IOException | ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    private ResultSet GetGame(int gameId){
+        String select = "SELECT * FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        ResultSet resultSet = null;
+
+        try {
+            PreparedStatement prSt = GetDbConnection().prepareStatement(select);
+            resultSet = prSt.executeQuery();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return resultSet;
+    }
+    private void UpdateUsers(int GameId, String valueWhiteName, String valueBlackName){
+        String updateWhite = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_WHITENAME + " = " + "'"+valueWhiteName+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+        String updateBlack = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'"+valueBlackName+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+
+        try {
+            PreparedStatement prStWhite = GetDbConnection().prepareStatement(updateWhite);
+            prStWhite.setInt(1, GameId);
+            prStWhite.executeUpdate();
+
+            PreparedStatement prStBlack = GetDbConnection().prepareStatement(updateBlack);
+            prStBlack.setInt(1, GameId);
+            prStBlack.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
 
