@@ -1,7 +1,9 @@
 ﻿name: Tag and Deploy
 
 on:
-  [push]
+  push:
+    branches:
+      - '**'
 
 jobs:
   tag-and-deploy:
@@ -14,6 +16,8 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0  # Необхідно для git tag
 
       - name: Set up JDK
         uses: actions/setup-java@v3
@@ -52,37 +56,4 @@ jobs:
           elif echo "$COMMIT_MSG" | grep -iq "#patch"; then
             patch=$((patch + 1))
           else
-            patch=$((patch + 1))  # За замовчуванням — patch
-          fi
-
-          version="$major.$minor.$patch"
-          echo "New version: $version"
-          echo "version=$version" >> $GITHUB_OUTPUT
-
-      - name: Update POM version
-        run: mvn versions:set -DnewVersion=${{ steps.get-version.outputs.version }}
-
-      - name: Commit version bump and tag
-        run: |
-          git commit -am "Release v${{ steps.get-version.outputs.version }}"
-          git tag v${{ steps.get-version.outputs.version }}
-          git push origin HEAD
-          git push origin v${{ steps.get-version.outputs.version }}
-
-      - name: Configure Maven credentials
-        run: |
-          mkdir -p ~/.m2
-          echo "<settings>
-            <servers>
-              <server>
-                <id>github</id>
-                <username>${GITHUB_ACTOR}</username>
-                <password>${{ secrets.GH_PACKAGES_TOKEN }}</password>
-              </server>
-            </servers>
-          </settings>" > ~/.m2/settings.xml
-
-      - name: Deploy to GitHub Packages
-        run: mvn deploy
-        env:
-          GITHUB_ACTOR: ${{ github.actor }}
+            patch=$((patch + 1))  # За з
