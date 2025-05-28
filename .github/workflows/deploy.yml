@@ -1,10 +1,9 @@
 name: Deploy to GitHub Packages
 
 on:
-  workflow_run:
-    workflows: [ "Version and Tag" ]
-    types:
-      - completed
+  push:
+    tags:
+      - 'v*.*.*'
 
 jobs:
   deploy:
@@ -28,6 +27,7 @@ jobs:
 
       - name: Create settings.xml for GitHub Packages
         run: |
+          mkdir -p ~/.m2
           cat > ~/.m2/settings.xml <<EOF
           <settings>
             <servers>
