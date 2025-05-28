@@ -172,5 +172,21 @@ public class DatabaseHandler extends Configs {
         }
         return infoOfNotFinishedGames;
     }
+
+    public boolean AddSpectator(int gameId, String spectatorName){
+        String insert = "INSERT INTO " + Const.SPECTATOR_TABLE + "(" + Const.SPECTATOR_GAMEID + "," + Const.SPECTATOR_SPECTATORNAME + ")" + "VALUES(?,?)";
+
+        try {
+            PreparedStatement prSt = GetDbConnection().prepareStatement(insert);
+            prSt.setInt(1, gameId);
+            prSt.setString(2, spectatorName);
+            prSt.executeUpdate();
+        } catch (SQLException | IOException e) {
+            return false;
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
+    }
 }
 
