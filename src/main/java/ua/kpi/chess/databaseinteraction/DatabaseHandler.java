@@ -141,6 +141,36 @@ public class DatabaseHandler extends Configs {
         return infoOfUnstartedGames;
     }
 
-    
+    public List<String[]> GetInfoOfNotFinishedGames() {
+        ResultSet result = null;
+        String checkBlackName = "bye";
+        String select = "SELECT " + Const.GAME_GAMEID + ", " + Const.GAME_WHITENAME + ", " + Const.GAME_BLACKNAME + ", " + Const.GAME_TYPE + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_BLACKNAME + "!=? AND " + Const.GAME_RESULT + " IS NULL";
+
+        try {
+            PreparedStatement prSt = GetDbConnection().prepareStatement(select);
+            prSt.setString(1, checkBlackName);
+            result = prSt.executeQuery();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } catch (ClassNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        List<String[]> infoOfNotFinishedGames = new ArrayList<>();
+        try {
+            while(result.next()){
+                String[] infoOfGame = new String[4];
+                infoOfGame[0] = result.getString(Const.GAME_GAMEID);
+                infoOfGame[1] = result.getString(Const.GAME_WHITENAME);
+                infoOfGame[2] = result.getString(Const.GAME_BLACKNAME);
+                infoOfGame[3] = result.getString(Const.GAME_TYPE);
+                infoOfNotFinishedGames.addLast(infoOfGame);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return infoOfNotFinishedGames;
+    }
 }
 
