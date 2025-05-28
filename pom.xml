@@ -13,12 +13,13 @@
 
     <groupId>ua.kpi.chess</groupId>
     <artifactId>chess</artifactId>
-    <version>1.0.1</version>
+    <version>${revision}</version>
     <name>chess</name>
 
     <properties>
         <java.version>23</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <revision>0.0.1-SNAPSHOT</revision>
     </properties>
 
     <dependencies>

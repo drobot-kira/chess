@@ -17,18 +17,13 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
         with:
-          fetch-depth: 0  # Необхідно для git tag
+          fetch-depth: 0  # щоб бачити всі теги
 
       - name: Set up JDK
         uses: actions/setup-java@v3
         with:
           java-version: '23'
           distribution: 'temurin'
-
-      - name: Set up Git identity
-        run: |
-          git config user.name "${{ github.actor }}"
-          git config user.email "${{ github.actor }}@users.noreply.github.com"
 
       - name: Extract version from last tag and increment
         id: get-version
@@ -56,4 +51,19 @@ jobs:
           elif echo "$COMMIT_MSG" | grep -iq "#patch"; then
             patch=$((patch + 1))
           else
-            patch=$((patch + 1))  # За з
+            patch=$((patch + 1))
+          fi
+
+          version="$major.$minor.$patch"
+          echo "version=$version" >> $GITHUB_OUTPUT
+
+      - name: Set up Maven settings for GitHub Packages
+        run: |
+          mkdir -p ~/.m2
+          echo "<settings>
+            <servers>
+              <server>
+                <id>github</id>
+                <username>${GITHUB_ACTOR}</username>
+                <password>${{ secrets.GH_PACKAGES_TOKEN }}</password>
+              </server>
