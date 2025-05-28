@@ -13,7 +13,7 @@ public class WebSocketApplication {
         SpringApplication.run(WebSocketApplication.class, args);
         DatabaseHandler dbHandler = new DatabaseHandler();
         try {
-            dbHandler.initializeDatabase("schema.sql");
+            dbHandler.InitializeDatabase("schema.sql");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } catch (IOException e) {
