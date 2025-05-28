@@ -335,5 +335,18 @@ public class DatabaseHandler extends Configs {
         }
         return repeatCounter;
     }
+
+    public void UpdatePosition(int gameId, String position){
+        String update = "UPDATE " + Const.POSITION_TABLE + " SET " + Const.POSITION_REPEATCOUNTER + " = " + Const.POSITION_REPEATCOUNTER + " + 1 WHERE " + Const.POSITION_POSITION + " = ? AND " + Const.POSITION_GAMEID + " = ?";
+        try{
+            PreparedStatement prSt = GetDbConnection().prepareStatement(update);
+            prSt.setString(1, position);
+            prSt.setInt(2, gameId);
+            prSt.executeUpdate();
+        }
+        catch(SQLException | ClassNotFoundException | IOException e){
+            throw new RuntimeException(e);
+        }
+    }
 }
 
