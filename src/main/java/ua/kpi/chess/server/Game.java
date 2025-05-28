@@ -1,15 +1,6 @@
 package ua.kpi.chess.server;
 
-import ua.kpi.chess.databaseinteraction.Const;
 import ua.kpi.chess.databaseinteraction.DatabaseHandler;
-
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.*;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class Game {
@@ -27,7 +18,7 @@ public class Game {
             { 1, 11, 11,  0,  0,  0,  0,  0}};
 
         DatabaseHandler dbFieldString = new DatabaseHandler();
-        String fieldString = dbFieldString.getMoves(GameId);
+        String fieldString = dbFieldString.GetMoves(GameId);
 
         int index = 0;
         while(fieldString.charAt(index) != '*'){
@@ -83,7 +74,7 @@ public class Game {
 
     public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SqureCoords ) {
         DatabaseHandler dbFieldString = new DatabaseHandler();
-        String fieldString = dbFieldString.getMoves(GameId);
+        String fieldString = dbFieldString.GetMoves(GameId);
         String newFieldString = "";
 
         for(int i = 0; i < fieldString.length(); i++){
@@ -129,7 +120,7 @@ public class Game {
         newFieldString += "*" + byf;
 
         DatabaseHandler dbUpdateFieldString = new DatabaseHandler();
-        dbUpdateFieldString.writeMoves(GameId, newFieldString);
+        dbUpdateFieldString.WriteMoves(GameId, newFieldString);
     }
 
     public byte[][] SquareClicked(int GameId, byte SquareId, int UserId) {
