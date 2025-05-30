@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 @SpringBootApplication
-public class WebSocketApplication {
+public class    WebSocketApplication {
     public static void main(String[] args) {
         SpringApplication.run(WebSocketApplication.class, args);
         DatabaseHandler dbHandler = new DatabaseHandler();

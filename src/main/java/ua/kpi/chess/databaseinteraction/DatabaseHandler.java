@@ -98,7 +98,7 @@ public class DatabaseHandler extends Configs {
     }
 
     public void WriteMoves(int GameId, String value){
-        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'* "+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'"+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
 
         try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(query);
@@ -264,6 +264,14 @@ public class DatabaseHandler extends Configs {
         }
     }
     public String[] StartGame(int gameId, String UserName){
+        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_MOVES + ") Values ( *** )";
+        try {
+            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
+            prs.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -286,7 +294,7 @@ public class DatabaseHandler extends Configs {
         }
 
         var random = new Random();
-        byte colorWhite = 2;//(byte)random.nextInt(1, 3);
+        byte colorWhite = (byte)random.nextInt(1, 3);
         if(colorWhite == 1){
             UpdateUsers(gameId, WhiteName, UserName);
             return new String[]{WhiteName, UserName};

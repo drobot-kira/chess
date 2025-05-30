@@ -4,7 +4,6 @@ import ua.kpi.chess.databaseinteraction.DatabaseHandler;
 
 
 public class Game {
-
     public byte[][] getField(int GameId) {
         byte[][] field = {
             {24, 22, 23, 25, 26, 23, 22, 24},
@@ -20,6 +19,9 @@ public class Game {
         DatabaseHandler dbFieldString = new DatabaseHandler();
         String fieldString = dbFieldString.GetMoves(GameId);
 
+        if(fieldString.length() < 4){
+            return field;
+        }
         int index = 0;
         while(fieldString.charAt(index) != '*'){
             byte iPrev = (byte)(8 - (byte)(fieldString.charAt(index + 1)) + '0');
@@ -59,7 +61,6 @@ public class Game {
         String whiteName = dbHandler.GetWhiteId(GameId);
         return whiteName;
     }
-
     public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SquareCoords ) {
         DatabaseHandler dbFieldString = new DatabaseHandler();
         String fieldString = dbFieldString.GetMoves(GameId);
@@ -67,23 +68,24 @@ public class Game {
 
         for(int i = 0; i < fieldString.length(); i++){
             if(fieldString.charAt(i) == '*'){
+                newFieldString = " ";
                 break;
             }
-
             newFieldString += fieldString.charAt(i);
         }
 
         byte iCoords = (byte)(8 - PieceCoords/10);
         char jCoords = (char)(PieceCoords%10 + 97);
-        newFieldString += jCoords;
-        newFieldString += iCoords;
+        byte iNewCoords = (byte)(8 - SquareCoords/10);
+        char jNewCoords = (char)(SquareCoords%10 + 97);
 
-        newFieldString += "-";
-
-        iCoords = (byte)(8 - SquareCoords/10);
-        jCoords = (char)(SquareCoords%10 + 97);
-        newFieldString += jCoords;
-        newFieldString += iCoords;
+        if(PieceCoords != SquareCoords){
+            newFieldString += jCoords;
+            newFieldString += iCoords;
+            newFieldString += "-";
+            newFieldString += iNewCoords;
+            newFieldString += jNewCoords;
+        }
 
         newFieldString += " *";
 
@@ -105,7 +107,7 @@ public class Game {
             }
         }
 
-        newFieldString += "*" + byf;
+        newFieldString += "*" + byf + "*";
 
         DatabaseHandler dbUpdateFieldString = new DatabaseHandler();
         dbUpdateFieldString.WriteMoves(GameId, newFieldString);
