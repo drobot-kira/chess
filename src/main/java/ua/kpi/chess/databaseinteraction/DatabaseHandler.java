@@ -362,5 +362,25 @@ public class DatabaseHandler extends Configs {
         }
 
     }
+
+    public String GetWhiteId(int gameId) {
+        String select = "SELECT " + Const.GAME_WHITENAME + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " =  " + gameId;
+        String whiteName = null;
+
+        try{
+            PreparedStatement prSt = GetDbConnection().prepareStatement(select);
+
+            ResultSet rs = prSt.executeQuery();
+            if (rs.next()) {
+                whiteName = rs.getString(Const.GAME_WHITENAME);
+            }
+        }
+        catch(SQLException | ClassNotFoundException | IOException e){
+            throw new RuntimeException(e);
+        }
+
+        return whiteName;
+    }
+
 }
 
