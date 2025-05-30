@@ -285,10 +285,13 @@ public class DatabaseHandler extends Configs {
             return new String[]{"Error3", "Error"};
         }
 
-        String insert  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateMoves  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateUser  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'" + UserName + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         try {
-            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
-            prs.executeUpdate();
+            PreparedStatement prsMove = GetDbConnection().prepareStatement(updateMoves);
+            PreparedStatement prsUser = GetDbConnection().prepareStatement(updateUser);
+            prsMove.executeUpdate();
+            prsUser.executeUpdate();
         } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
