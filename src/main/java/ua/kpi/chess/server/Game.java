@@ -54,25 +54,11 @@ public class Game {
         return field;
     }
 
-    private int getWhiteId(int GameId) {
-        return 1;
+    private String getWhiteId(int GameId) {
+        return "1";
     }
 
-    private void writeTheEnd() {
-        byte[][] field = {
-                {24, 22, 23, 25, 26, 23, 22, 24},
-                {21, 21, 21, 21, 21, 21, 21, 21},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {11, 11, 11, 11, 11, 11, 11, 11},
-                {14, 12, 13, 15, 16, 13, 12, 14},
-                {1, 11, 11, 0, 0, 0, 0, 0}};
-        writeMove(1, field, (byte)1, (byte)1);   //тут нада виправити
-    }
-
-    public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SqureCoords ) {
+    public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SquareCoords ) {
         DatabaseHandler dbFieldString = new DatabaseHandler();
         String fieldString = dbFieldString.GetMoves(GameId);
         String newFieldString = "";
@@ -92,8 +78,8 @@ public class Game {
 
         newFieldString += "-";
 
-        iCoords = (byte)(8 - SqureCoords/10);
-        jCoords = (char)(SqureCoords%10 + 97);
+        iCoords = (byte)(8 - SquareCoords/10);
+        jCoords = (char)(SquareCoords%10 + 97);
         newFieldString += jCoords;
         newFieldString += iCoords;
 
@@ -123,10 +109,9 @@ public class Game {
         dbUpdateFieldString.WriteMoves(GameId, newFieldString);
     }
 
-    public byte[][] SquareClicked(int GameId, byte SquareId, int UserId) {
+    public byte[][] SquareClicked(int GameId, byte SquareId, String UserId) {
         byte[][] field = getField(GameId);
-        UserId = field[8][0];
-        int WhiteId = getWhiteId(GameId);
+        String WhiteId = getWhiteId(GameId);
 
         byte i = (byte) (SquareId / 10);
         byte j = (byte) (SquareId % 10);
@@ -161,7 +146,6 @@ public class Game {
                                 willBeEnPassant = true;
                             }
                         }
-                        // ****врахувати перетворення
                     } else if (field[selectedPiece / 10][selectedPiece % 10] % 10 == 4) // rook is moving
                     {
                         if (field[8][0] / 10 == 1) {
@@ -237,7 +221,6 @@ public class Game {
                         }
                         field[0][0] = theEnd;
                         field[0][1] = value;
-                        writeTheEnd();
                     }
                 } else // the move is not possible
                 {
@@ -249,7 +232,12 @@ public class Game {
             }
         }
 
-        writeMove(GameId, field, (byte)1, (byte)1); //тут нада виправити
+        byte PieceCoords = Board.IsThereAMarkedPiece(field);
+        if(PieceCoords == -1)
+        {
+            PieceCoords = SquareId;
+        }
+        writeMove(GameId, field, PieceCoords, SquareId);
 
         return field;
     }
