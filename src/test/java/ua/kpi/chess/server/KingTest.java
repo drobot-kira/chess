@@ -332,4 +332,204 @@ public class KingTest {
             assertEquals(correctList, testList);
         }
     }
+    @Test
+    void testWhiteKingIsCastleTwoRook(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {14, 30, 30, 30, 16, 30, 30, 14},
+                { 1,  11,  0,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 63, (byte) 64, (byte) 65, (byte) 73, (byte) 75,(byte) 76, (byte)72));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 74, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testWhiteKingIsCastleOneRookRight(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 16, 30, 30, 14},
+                { 1,  1,  0,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 63, (byte) 64, (byte) 65, (byte) 73, (byte) 75,(byte) 76));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 74, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testWhiteKingIsCastleOneRookLeft(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {14, 30, 30, 30, 16, 30, 30, 30},
+                { 1,  10,  0,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 63, (byte) 64, (byte) 65, (byte) 73, (byte) 75,(byte) 72));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 74, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testWhiteKingIsCastleWithObstacle(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {14, 30, 11, 30, 16, 30, 30, 30},
+                { 1,  10,  0,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 63, (byte) 64, (byte) 65, (byte) 73, (byte) 75));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 74, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testWhiteKingIsCastleWithCheck(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 24, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {14, 30, 30, 30, 16, 30, 30, 30},
+                { 1,  10,  0,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 63, (byte) 64, (byte) 65, (byte) 73, (byte) 75));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 74, (byte) 1);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testBlackingIsCastleTwoRook(){
+        //Arrange
+        byte[][] field = {
+                {24, 30, 30, 30, 26, 30, 30, 24},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                { 2,  0, 11,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 3, (byte) 5, (byte) 13, (byte) 14, (byte) 15,(byte) 6, (byte)2));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 4, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testBlackKingIsCastleOneRookRight(){
+        //Arrange
+        byte[][] field = {
+                {30, 30, 30, 30, 26, 30, 30, 26},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                { 2, 30,  1,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 3, (byte) 5, (byte) 13, (byte) 14, (byte) 15, (byte) 6));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 4, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
+    @Test
+    void testBlackKingIsCastleOneRookLeft(){
+        //Arrange
+        byte[][] field = {
+                {24, 30, 30, 30, 26, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                {30, 30, 30, 30, 30, 30, 30, 30},
+                { 2,  0, 10,  0,  0,  0,  0,  0}
+        };
+
+        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+            pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
+            LinkedList<Byte> correctList =  new LinkedList<>(List.of((byte) 3, (byte) 5, (byte) 13, (byte) 14, (byte) 15, (byte)2));
+            //Act
+            var king = new King();
+            LinkedList<Byte> testList = king.FindPossibleMovesItem(field, (byte) 4, (byte) 2);
+            //Assert
+            assertEquals(correctList, testList);
+        }
+    }
 }
