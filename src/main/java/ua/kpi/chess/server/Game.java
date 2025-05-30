@@ -55,7 +55,9 @@ public class Game {
     }
 
     private String getWhiteId(int GameId) {
-        return "1";
+        DatabaseHandler dbHandler = new DatabaseHandler();
+        String whiteName = dbHandler.GetWhiteId(GameId);
+        return whiteName;
     }
 
     public void writeMove(int GameId, byte[][] field, byte PieceCoords, byte SquareCoords ) {
