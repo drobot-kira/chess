@@ -7,6 +7,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyByte;
+import static org.mockito.Mockito.mockStatic;
 
 public class PositionTest {
     @Test
@@ -24,7 +25,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -49,7 +50,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -74,7 +75,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -99,7 +100,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -124,7 +125,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -149,7 +150,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -174,7 +175,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -199,7 +200,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -224,7 +225,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -249,7 +250,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -274,7 +275,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -299,7 +300,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -307,6 +308,19 @@ public class PositionTest {
             boolean test = position.IsThereAnInsufficientMaterial(field);
             //Assert
             assertEquals(correct, test);
+        }
+    }
+
+    @Test
+    public void testIsGameEndedCheckmate() {
+        byte[][] field = new byte[9][8];
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheckmate(field)).thenReturn(true);
+            mocked.when(() -> Position.IsGameEnded(field, 1)).thenCallRealMethod();
+
+            byte result = Position.IsGameEnded(field, 1);
+            assertEquals(1, result);
         }
     }
 }
