@@ -430,4 +430,34 @@ public class PositionTest {
         byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 14, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
         Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
     }
+
+    @Test
+    void testInsufficientMaterialQueen() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 15, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
+    }
+
+    @Test
+    void testInsufficientMaterialPawn() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 11, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
+    }
+
+    @Test
+    void testInsufficientMaterialKnightAndBishop() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 12, 13, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
+    }
+
+    @Test
+    void testInsufficientMaterialManyKnight() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 12, 12, 12, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
+    }
+
+    @Test
+    void testInsufficientMaterialFourBishopsSameColors() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 23, 30, 30, 30}, {30, 30, 30, 30, 13, 23, 30, 30}, {30, 30, 30, 16, 30, 13, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
+    }
 }
