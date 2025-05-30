@@ -323,4 +323,17 @@ public class PositionTest {
             assertEquals(1, result);
         }
     }
+
+    @Test
+    public void testIsGameEndedSecondCase() {
+        byte[][] field = new byte[9][8];
+        field[8][4] = 70;
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheckmate(field)).thenReturn(false);
+            mocked.when(() -> Position.IsGameEnded(field, 1)).thenCallRealMethod();
+            byte result = Position.IsGameEnded(field, 1);
+            assertEquals(70, result);
+        }
+    }
 }
