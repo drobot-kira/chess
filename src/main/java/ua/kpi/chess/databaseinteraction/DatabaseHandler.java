@@ -98,7 +98,7 @@ public class DatabaseHandler extends Configs {
     }
 
     public void WriteMoves(int GameId, String value){
-        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'"+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'* "+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
 
         try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(query);
