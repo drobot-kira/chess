@@ -434,4 +434,19 @@ public class PositionTest {
         }
     }
 
+    @Test
+    public void testIsThereACheckmateKingCanEscape() {
+        byte[][] field = new byte[9][8];
+        field[8][0] = 1;      // current player = white
+        field[0][4] = 16;     // white king at (0,4)
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            // First IsThereACheck returns true (check exists),
+            // second returns false (after simulated king move — no check)
+            mocked.when(() -> Position.IsThereACheck(any())).thenReturn(true).thenReturn(false);
+
+            boolean result = Position.IsThereACheckmate(field);
+            assertEquals(false, result);
+        }
+    }
 }
