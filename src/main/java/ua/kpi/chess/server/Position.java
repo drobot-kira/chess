@@ -88,7 +88,7 @@ public class Position {
     {
         if (!IsThereACheck(field)) return false;
 
-        int currentPlayer = field[8][0]; // 1 - білі, 2 - чорні
+        int currentPlayer = field[8][0];
         int opponent = (currentPlayer == 1) ? 2 : 1;
         int kingValue = (currentPlayer == 1) ? 16 : 26;
         int kingRow = -1, kingCol = -1;
