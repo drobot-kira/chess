@@ -1,5 +1,6 @@
 package ua.kpi.chess.server;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -309,4 +310,48 @@ public class PositionTest {
             assertEquals(correct, test);
         }
     }
+
+    @Test
+    void testKingNoInCheck() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 21, 11, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 11, 15, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertFalse(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByPawn() {
+        byte[][] field = new byte[][]{{30, 30, 26, 30, 30, 30, 30, 30}, {30, 30, 30, 11, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 16, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByKnight() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 12, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 21, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByKing() {
+        byte[][] field = new byte[][]{{30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByQueen() {
+        byte[][] field = new byte[][]{{30, 30, 30, 25, 26, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByRook() {
+        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 14, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+    @Test
+    void testKingInCheckByBishop() {
+        byte[][] field = new byte[][]{{13, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
+        Assertions.assertTrue(Position.IsThereACheck(field));
+    }
+
+
 }
