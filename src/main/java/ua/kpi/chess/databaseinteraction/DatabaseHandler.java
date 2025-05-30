@@ -212,7 +212,7 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        if(bye.equals(null)){
+        if(bye == null){
             AddUser("bye", "");
         }
 
@@ -263,7 +263,7 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
     }
-    public byte StertGame(int gameId, String UserName){
+    public String[] StartGame(int gameId, String UserName){
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -274,26 +274,26 @@ public class DatabaseHandler extends Configs {
                 BlackName = resultSet.getString(Const.GAME_BLACKNAME);
             }
             else{
-                return -2;
+                return new String[]{"Error1", "Error"};
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
         if(WhiteName.equals(UserName)){
-            return -1;
-        }else if(!BlackName.equals(UserName)){
-            return 0;
+            return new String[]{"Error2", "Error"};
+        }else if(!BlackName.equals("bye")){
+            return new String[]{"Error3", "Error"};
         }
 
         var random = new Random();
         byte colorWhite = 2;//(byte)random.nextInt(1, 3);
         if(colorWhite == 1){
             UpdateUsers(gameId, WhiteName, UserName);
+            return new String[]{WhiteName, UserName};
         }else{
             UpdateUsers(gameId, UserName, WhiteName);
+            return new String[]{UserName, WhiteName};
         }
-
-        return colorWhite;
     }
     public boolean EndGame(int gameId, int result){
         String deleteCounter = "DELETE FROM " + Const.POSITION_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
