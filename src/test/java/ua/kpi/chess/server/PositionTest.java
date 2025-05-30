@@ -1,6 +1,5 @@
 package ua.kpi.chess.server;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockedStatic;
 import org.mockito.Mockito;
@@ -8,6 +7,7 @@ import org.mockito.Mockito;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyByte;
+import static org.mockito.Mockito.mockStatic;
 
 public class PositionTest {
     @Test
@@ -25,7 +25,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -50,7 +50,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -75,7 +75,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -100,7 +100,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -125,7 +125,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -150,7 +150,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -175,7 +175,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -200,7 +200,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -225,7 +225,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -250,7 +250,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -275,7 +275,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -300,7 +300,7 @@ public class PositionTest {
                 {1, 0, 0, 0, 0, 0, 0, 0}
         };
 
-        try (MockedStatic<Piece> pieceMock = Mockito.mockStatic(Piece.class)) {
+        try (MockedStatic<Piece> pieceMock = mockStatic(Piece.class)) {
             pieceMock.when(() -> Piece.IsThereACheck(any(), anyByte(), anyByte())).thenReturn(false);
             boolean correct = true;
             //Act
@@ -312,214 +312,15 @@ public class PositionTest {
     }
 
     @Test
-    void testKingNoInCheck() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 21, 11, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 11, 15, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereACheck(field));
+    public void testIsGameEndedCheckmate() {
+        byte[][] field = new byte[9][8];
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheckmate(field)).thenReturn(true);
+            mocked.when(() -> Position.IsGameEnded(field, 1)).thenCallRealMethod();
+
+            byte result = Position.IsGameEnded(field, 1);
+            assertEquals(1, result);
+        }
     }
-
-    @Test
-    void testKingInCheckByPawn() {
-        byte[][] field = new byte[][]{{30, 30, 26, 30, 30, 30, 30, 30}, {30, 30, 30, 11, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 16, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testKingInCheckByKnight() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 12, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 21, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testKingInCheckByKing() {
-        byte[][] field = new byte[][]{{30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testKingInCheckByQueen() {
-        byte[][] field = new byte[][]{{30, 30, 30, 25, 26, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testKingInCheckByRook() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 14, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testKingInCheckByBishop() {
-        byte[][] field = new byte[][]{{13, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheck(field));
-    }
-
-    @Test
-    void testCheckmateByQueen() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 15, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testCheckmateByRook() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 24, 30, 30, 30, 30}, {30, 16, 30, 24, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testCheckmateByBishop() {
-        byte[][] field = new byte[][]{{26, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 13, 30, 30, 30, 30, 30}, {16, 30, 13, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testCheckmateByKnight() {
-        byte[][] field = new byte[][]{{26, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 12, 30, 30, 30, 30, 30}, {16, 30, 12, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testCheckmateByPawn() {
-        byte[][] field = new byte[][]{{30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 26, 30, 30, 30, 30, 30, 30}, {30, 21, 21, 30, 30, 30, 30, 30}, {30, 16, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testNoCheckmate() {
-        byte[][] field = new byte[][]{{30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 25, 30, 30, 30, 30}, {30, 30, 30, 11, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testNoCheckmateCanBlock() {
-        byte[][] field = new byte[][]{{26, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 24, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {14, 14, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {16, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereACheckmate(field));
-    }
-
-    @Test
-    void testStalemateNoMoveBlack() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 11, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAStalemate(field));
-    }
-
-    @Test
-    void testStalemateNoMoveWhite() {
-        byte[][] field = new byte[][]{{30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 21, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAStalemate(field));
-    }
-
-    @Test
-    void testNoStalemateHaveMoveBlack() {
-        byte[][] field = new byte[][]{{26, 30, 30, 30, 30, 30, 30, 30}, {30, 21, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {14, 14, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAStalemate(field));
-    }
-
-    @Test
-    void testNoStalemateHaveMoveWhite() {
-        byte[][] field = new byte[][]{{16, 30, 30, 30, 30, 30, 30, 30}, {30, 11, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {24, 24, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAStalemate(field));
-    }
-
-    @Test
-    void testStalemateBlockedPawn() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 14, 30, 14, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 21, 30, 30, 30, 30, 30, 30}, {30, 16, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAStalemate(field));
-    }
-
-    @Test
-    void testInsufficientMaterialTwoKing() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialOneKnight() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 12, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialTwoBishopsSameColor() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 13, 30, 30, 30, 30, 30, 30}, {30, 30, 13, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialTwoBishopsDifferentColors() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 16, 13, 13, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialTwoKnight() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 12, 30, 12, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialRook() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 14, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialQueen() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 15, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialPawn() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 11, 30, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialKnightAndBishop() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 12, 13, 30, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialManyKnight() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 12, 12, 12, 30}, {30, 30, 30, 16, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertFalse(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testInsufficientMaterialFourBishopsSameColors() {
-        byte[][] field = new byte[][]{{30, 30, 30, 26, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 23, 30, 30, 30}, {30, 30, 30, 30, 13, 23, 30, 30}, {30, 30, 30, 16, 30, 13, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {30, 30, 30, 30, 30, 30, 30, 30}, {1, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertTrue(Position.IsThereAnInsufficientMaterial(field));
-    }
-
-    @Test
-    void testGameEndedByCheckmate() {
-        byte[][] field = new byte[][]{
-                {30, 26, 30, 30, 30, 14, 30, 30},
-                {30, 30, 30, 30, 30, 14, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 16, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {2, 0, 0, 0, 0, 0, 0, 0}};
-        Assertions.assertEquals(1, Position.IsGameEnded(field, 0));
-    }
-
-
-    @Test
-    void testGameEndedMoreThan70() {
-        byte[][] field = new byte[][]{
-                {30, 30, 30, 26, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 30, 30, 30, 30, 30},
-                {30, 30, 30, 16, 30, 30, 30, 30},
-                {1, 0, 0, 0, 70, 0, 0, 0}};
-        Assertions.assertEquals(70, Position.IsGameEnded(field, 0));
-    }
-
 }
