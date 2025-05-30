@@ -1,5 +1,7 @@
 package ua.kpi.chess.server;
 
+import ua.kpi.chess.databaseinteraction.DatabaseHandler;
+
 public class Position {
 
     public static boolean IsThereACheck(byte[][] field)
@@ -351,9 +353,36 @@ public class Position {
     }
 
 
-    private static boolean IsThereAThreefoldRepetition(byte[][] field)
+    public static boolean IsThereAThreefoldRepetition(byte[][] field, int GameId)
     {
-        return false;
+        for(int i = 1; i < 7; i++){
+            field[8][i] = 0;
+        }
+
+        String result = "";
+
+        for(int i = 0; i < 9; i++){
+            for(int j = 0; j < 8; j++){
+                result = result + "*" + field[i][j];
+            }
+        }
+        DatabaseHandler dbHandler = new DatabaseHandler();
+
+        int counter = dbHandler.GetRepeatCounter(GameId, result);
+        if(counter == -1){
+            dbHandler.InsertPosition(GameId, result);
+        }
+        else{
+            dbHandler.UpdatePosition(GameId, result);
+            counter++;
+        }
+
+        if(counter == 3){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
     public static boolean IsThereAnInsufficientMaterial(byte[][] field) {
@@ -410,7 +439,7 @@ public class Position {
     }
 
 
-    public static byte IsGameEnded(byte[][] field)
+    public static byte IsGameEnded(byte[][] field, int GameId)
     {
         if (IsThereACheckmate(field)) {
             return 1;
@@ -418,7 +447,7 @@ public class Position {
         else if (field[8][4] > 69) {
             return 70;
         }
-        else if (IsThereAThreefoldRepetition(field)) {
+        else if (IsThereAThreefoldRepetition(field, GameId)) {
             return 3;
         }
         else if (IsThereAnInsufficientMaterial(field)) {
