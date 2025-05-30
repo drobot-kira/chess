@@ -406,4 +406,19 @@ public class PositionTest {
             assertEquals(false, Position.IsThereAStalemate(field));
         }
     }
+
+    @Test
+    public void testInCheck() {
+        byte[][] field = new byte[9][8];
+        field[8][0] = 2;
+        field[0][0] = 26;
+        field[7][7] = 16;
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheck(any())).thenReturn(true);
+            mocked.when(() -> Position.IsThereAStalemate(field)).thenCallRealMethod();
+
+            assertEquals(false, Position.IsThereAStalemate(field));
+        }
+    }
 }
