@@ -205,7 +205,7 @@ public class Game {
                         }
                     }
 
-                    byte theEnd = Position.IsGameEnded(fieldCopy);
+                    byte theEnd = Position.IsGameEnded(fieldCopy, GameId);
                     if (theEnd != 0) // the server is ended
                     {
                         byte value = 0;
