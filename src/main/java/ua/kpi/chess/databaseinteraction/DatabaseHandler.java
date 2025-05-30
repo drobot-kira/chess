@@ -264,14 +264,6 @@ public class DatabaseHandler extends Configs {
         }
     }
     public String[] StartGame(int gameId, String UserName){
-        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_MOVES + ") Values ( *** )";
-        try {
-            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
-            prs.executeUpdate();
-        } catch (SQLException | ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
-
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -291,6 +283,14 @@ public class DatabaseHandler extends Configs {
             return new String[]{"Error2", "Error"};
         }else if(!BlackName.equals("bye")){
             return new String[]{"Error3", "Error"};
+        }
+
+        String insert  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        try {
+            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
+            prs.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
         }
 
         var random = new Random();
