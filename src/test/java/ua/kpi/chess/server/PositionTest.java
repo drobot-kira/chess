@@ -421,4 +421,17 @@ public class PositionTest {
             assertEquals(false, Position.IsThereAStalemate(field));
         }
     }
+
+    @Test
+    public void testIsThereACheckmateNoCheck() {
+        byte[][] field = new byte[9][8];
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheck(field)).thenReturn(false);
+
+            boolean result = Position.IsThereACheckmate(field);
+            assertEquals(false, result);
+        }
+    }
+
 }
