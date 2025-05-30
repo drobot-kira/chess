@@ -1,5 +1,8 @@
 package ua.kpi.chess.databaseinteraction;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
@@ -11,6 +14,7 @@ import java.util.Random;
 
 public class DatabaseHandler extends Configs {
     Connection dbConnection;
+    private static Logger logger = LoggerFactory.getLogger(DatabaseHandler.class);
 
     public void InitializeDatabase(String resourceName) throws SQLException, IOException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/";
@@ -29,6 +33,7 @@ public class DatabaseHandler extends Configs {
                     stmt.execute(command);
                 }
             }
+            logger.info("Database created");
         }
     }
 
@@ -39,6 +44,7 @@ public class DatabaseHandler extends Configs {
 
         Class.forName("com.mysql.jdbc.Driver");
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
+        logger.info("Connected to databse");
         return dbConnection;
     }
 
@@ -55,6 +61,7 @@ public class DatabaseHandler extends Configs {
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        logger.info("New user added to database");
     }
 
     public ResultSet GetUser(String name){
@@ -174,7 +181,7 @@ public class DatabaseHandler extends Configs {
         return infoOfNotFinishedGames;
     }
 
-    public boolean AddSpectator(int gameId, String spectatorName){
+    public void AddSpectator(int gameId, String spectatorName){
         String insert = "INSERT INTO " + Const.SPECTATOR_TABLE + "(" + Const.SPECTATOR_GAMEID + "," + Const.SPECTATOR_SPECTATORNAME + ")" + "VALUES(?,?)";
 
         try {
@@ -183,11 +190,11 @@ public class DatabaseHandler extends Configs {
             prSt.setString(2, spectatorName);
             prSt.executeUpdate();
         } catch (SQLException | IOException e) {
-            return false;
+            throw new RuntimeException(e);
         } catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
-        return true;
+        logger.info("New spectator added to database");
     }
 
     private boolean IsIdenticalGameId(int gameId){
@@ -233,6 +240,7 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException | IOException | ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+        logger.info("The new game was created");
     }
     private ResultSet GetGame(int gameId){
         String select = "SELECT * FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
@@ -264,6 +272,14 @@ public class DatabaseHandler extends Configs {
         }
     }
     public String[] StartGame(int gameId, String UserName){
+        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_MOVES + ") Values ( *** )";
+        try {
+            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
+            prs.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -285,24 +301,20 @@ public class DatabaseHandler extends Configs {
             return new String[]{"Error3", "Error"};
         }
 
-        String insert  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
-        try {
-            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
-            prs.executeUpdate();
-        } catch (SQLException | ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
-
         var random = new Random();
         byte colorWhite = (byte)random.nextInt(1, 3);
         if(colorWhite == 1){
             UpdateUsers(gameId, WhiteName, UserName);
+            logger.info("The game was started");
             return new String[]{WhiteName, UserName};
         }else{
             UpdateUsers(gameId, UserName, WhiteName);
+            logger.info("The game was started");
             return new String[]{UserName, WhiteName};
         }
-    }    public boolean EndGame(int gameId, int result){
+
+    }
+    public boolean EndGame(int gameId, int result){
         String deleteCounter = "DELETE FROM " + Const.POSITION_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateSpectator = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_SPECTATORNAME + " = " + "NULL" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateResult = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_RESULT + " = " + "'" + result + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
@@ -320,7 +332,7 @@ public class DatabaseHandler extends Configs {
         } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
-
+        logger.info("The game was ended");
         return true;
     }
 
@@ -385,6 +397,7 @@ public class DatabaseHandler extends Configs {
         catch(SQLException | ClassNotFoundException | IOException e){
             throw new RuntimeException(e);
         }
+
         return whiteName;
     }
 
