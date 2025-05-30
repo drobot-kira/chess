@@ -336,4 +336,17 @@ public class PositionTest {
             assertEquals(70, result);
         }
     }
+
+    @Test
+    public void testIsGameEndedThreefoldRepetition() {
+        byte[][] field = new byte[9][8];
+
+        try (MockedStatic<Position> mocked = mockStatic(Position.class)) {
+            mocked.when(() -> Position.IsThereACheckmate(field)).thenReturn(false);
+            mocked.when(() -> Position.IsThereAThreefoldRepetition(field, 1)).thenReturn(true);
+            mocked.when(() -> Position.IsGameEnded(field, 1)).thenCallRealMethod();
+            byte result = Position.IsGameEnded(field, 1);
+            assertEquals(3, result);
+        }
+    }
 }
