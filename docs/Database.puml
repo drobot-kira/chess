@@ -1,0 +1,39 @@
+﻿@startuml
+entity "User" as User {
+    * name : VARCHAR(50) <<PK>>
+    --
+    password : VARCHAR(50)
+}
+
+entity "Game" as Game {
+    * gameId : INT <<PK, AUTO_INCREMENT>>
+    --
+    whiteName : VARCHAR(100)
+    blackName : VARCHAR(100)
+    type : VARCHAR(5)
+    moves : TEXT
+    result : TINYINT
+    spectatorName : VARCHAR(100)
+}
+
+entity "PositionTable" as PositionTable {
+    * gameId : INT <<PK>>
+    * position : VARCHAR(255) <<PK>>
+    --
+    repeatCounter : TINYINT
+}
+
+entity "Spectator" as Spectator {
+    * gameId : INT <<PK>>
+    * spectatorName : VARCHAR(100) <<PK>>
+}
+
+' Встановлення зв'язків
+Game::whiteName --> User::name
+Game::blackName --> User::name
+Game::spectatorName --> User::name
+
+PositionTable::gameId --> Game::gameId
+Spectator::gameId --> Game::gameId
+Spectator::spectatorName --> User::name
+@enduml

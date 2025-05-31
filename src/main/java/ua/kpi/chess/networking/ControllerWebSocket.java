@@ -56,6 +56,7 @@ public class ControllerWebSocket extends TextWebSocketHandler {
             byte squareId = (byte) jsonNode.get("SquareId").asInt();
             int gameId = jsonNode.get("GameId").asInt();
             String userId = jsonNode.get("UserId").asText();
+            String opponentUserId = jsonNode.get("Opponent").asText();
 
             Game game = new Game();
             byte[][] field = game.SquareClicked(gameId, squareId, userId);
@@ -69,6 +70,11 @@ public class ControllerWebSocket extends TextWebSocketHandler {
 
             String jsonResponse = objectMapper.writeValueAsString(intField);
             session.sendMessage(new TextMessage(jsonResponse));
+
+            WebSocketSession opponentSession = findSessionByUserName(opponentUserId);
+            if (opponentSession != null && opponentSession.isOpen()) {
+                opponentSession.sendMessage(new TextMessage(jsonResponse));
+            }
         }
         else if (type.equals("Identify")) {
             String userName = jsonNode.get("UserName").asText();
@@ -132,7 +138,6 @@ public class ControllerWebSocket extends TextWebSocketHandler {
             String[] players = databaseHandler.StartGame(gameId, userName);
 
             WebSocketSession creatorSession = findSessionByUserName(players[0]);
-            System.out.println(players[0]);
             if (creatorSession != null && creatorSession.isOpen()) {
                 Map<String, Object> response = new HashMap<>();
                 response.put("type", "StartGame");

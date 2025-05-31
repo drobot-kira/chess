@@ -264,14 +264,6 @@ public class DatabaseHandler extends Configs {
         }
     }
     public String[] StartGame(int gameId, String UserName){
-        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_MOVES + ") Values ( *** )";
-        try {
-            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
-            prs.executeUpdate();
-        } catch (SQLException | ClassNotFoundException | IOException e) {
-            throw new RuntimeException(e);
-        }
-
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -293,6 +285,14 @@ public class DatabaseHandler extends Configs {
             return new String[]{"Error3", "Error"};
         }
 
+        String insert  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        try {
+            PreparedStatement prs = GetDbConnection().prepareStatement(insert);
+            prs.executeUpdate();
+        } catch (SQLException | ClassNotFoundException | IOException e) {
+            throw new RuntimeException(e);
+        }
+
         var random = new Random();
         byte colorWhite = (byte)random.nextInt(1, 3);
         if(colorWhite == 1){
@@ -302,8 +302,7 @@ public class DatabaseHandler extends Configs {
             UpdateUsers(gameId, UserName, WhiteName);
             return new String[]{UserName, WhiteName};
         }
-    }
-    public boolean EndGame(int gameId, int result){
+    }    public boolean EndGame(int gameId, int result){
         String deleteCounter = "DELETE FROM " + Const.POSITION_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateSpectator = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_SPECTATORNAME + " = " + "NULL" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateResult = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_RESULT + " = " + "'" + result + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
@@ -386,7 +385,6 @@ public class DatabaseHandler extends Configs {
         catch(SQLException | ClassNotFoundException | IOException e){
             throw new RuntimeException(e);
         }
-
         return whiteName;
     }
 

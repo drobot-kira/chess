@@ -9,14 +9,13 @@ let startField = [
     [30, 30, 30, 30, 30, 30, 30, 30],
     [11, 11, 11, 11, 11, 11, 11, 11],
     [14, 12, 13, 15, 16, 13, 12, 14],
-    [ 1, 11, 11,  0,  0,  0,  0,  0]];
-if (localStorage.getItem('color') === 'black')
-{
+    [1, 11, 11, 0, 0, 0, 0, 0]];
+if (localStorage.getItem('color') === 'black') {
     startField = ChangeColor(startField);
 }
 showField(startField);
-document.getElementById("whiteName").innerText = localStorage.getItem('username');
-document.getElementById("blackName").innerText = localStorage.getItem('opponent')
+document.getElementById("blackName").innerText = localStorage.getItem('username');
+document.getElementById("whiteName").innerText = localStorage.getItem('opponent')
 
 socket.onopen = () => {
     const userName = localStorage.getItem('username');
@@ -25,16 +24,18 @@ socket.onopen = () => {
 
 socket.onmessage = function (event) {
     let field = JSON.parse(event.data);
-    if (localStorage.getItem('color') === 'black')
-    {
+    if (localStorage.getItem('color') === 'black') {
         showField(ChangeColor(field));
-    }
-    else {
+    } else {
         showField(field);
     }
 }
 
-    function showField(field){
+function showField(field) {
+    if (field[0][2] == 0)
+    {
+        return;
+    }
     for (i = 0; i < 8; i++) {
         for (j = 0; j < 8; j++) {
             let piece = field[i][j];
@@ -94,31 +95,38 @@ function SquareClicked(SqId) {
     let gameId = localStorage.getItem('gameid');
     let userId = localStorage.getItem('username');
 
-    let message = JSON.stringify({Type: "SquareClicked", SquareId: squareId, GameId: gameId, UserId: userId});
+    if (localStorage.getItem('color') === 'black') {
+        let i = Math.floor(squareId / 10);
+        let j = squareId % 10;
+        squareId = (7 - i) * 10 + 7 - j;
+    }
+
+    let message = JSON.stringify({
+        Type: "SquareClicked",
+        SquareId: squareId,
+        GameId: gameId,
+        UserId: userId,
+        Opponent: localStorage.getItem('opponent')
+    });
     socket.send(message);
 }
 
-function ChangeColor(field){
+function ChangeColor(field) {
     let newField = [];
-    for (let i = 0; i < 8; i++)
-    {
+    for (let i = 0; i < 8; i++) {
         newField[i] = []
-        for (let j = 0; j < 8; j++)
-        {
+        for (let j = 0; j < 8; j++) {
             newField[i][j] = 0;
         }
     }
     newField[8] = [];
-    for (let i = 0; i < 8; i++)
-    {
+    for (let i = 0; i < 8; i++) {
         newField[8][i] = field[8][i];
     }
 
-    for (let i = 0; i < 8; i++)
-    {
-        for (let j = 0; j < 8; j++)
-        {
-            newField[i][j] = field[7-i][7-j];
+    for (let i = 0; i < 8; i++) {
+        for (let j = 0; j < 8; j++) {
+            newField[i][j] = field[7 - i][7 - j];
         }
     }
 
