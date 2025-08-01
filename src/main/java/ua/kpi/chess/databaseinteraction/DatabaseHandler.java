@@ -40,7 +40,7 @@ public class DatabaseHandler extends Configs {
     public Connection GetDbConnection() throws ClassNotFoundException, SQLException, IOException {
 //        initializeDatabase("schema.sql");
 
-        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" +dbName;
+        String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
 
         Class.forName("com.mysql.jdbc.Driver");
         dbConnection = DriverManager.getConnection(connectionString, dbUser, dbPass);
@@ -64,7 +64,7 @@ public class DatabaseHandler extends Configs {
         logger.info("New user added to database");
     }
 
-    public ResultSet GetUser(String name){
+    public ResultSet GetUser(String name) {
         ResultSet resultSet = null;
 
         String select = "SELECT * FROM " + Const.USER_TABLE + " WHERE " + Const.USER_NAME + "=?";
@@ -82,7 +82,7 @@ public class DatabaseHandler extends Configs {
         return resultSet;
     }
 
-    public String GetMoves(int GameId){
+    public String GetMoves(int GameId) {
         String query = "SELECT " + Const.GAME_MOVES + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " =?";
 
         ResultSet resultSet = null;
@@ -104,8 +104,8 @@ public class DatabaseHandler extends Configs {
         return moves;
     }
 
-    public void WriteMoves(int GameId, String value){
-        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'*"+value+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+    public void WriteMoves(int GameId, String value) {
+        String query = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'" + value + "'" + " WHERE " + Const.GAME_GAMEID + " =?";
 
         try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(query);
@@ -136,7 +136,7 @@ public class DatabaseHandler extends Configs {
         List<String[]> infoOfUnstartedGames = new ArrayList<>();
 
         try {
-            while(result.next()){
+            while (result.next()) {
                 String[] infoOfGame = new String[3];
                 infoOfGame[0] = result.getString(Const.GAME_GAMEID);
                 infoOfGame[1] = result.getString(Const.GAME_WHITENAME);
@@ -167,7 +167,7 @@ public class DatabaseHandler extends Configs {
         }
         List<String[]> infoOfNotFinishedGames = new ArrayList<>();
         try {
-            while(result.next()){
+            while (result.next()) {
                 String[] infoOfGame = new String[4];
                 infoOfGame[0] = result.getString(Const.GAME_GAMEID);
                 infoOfGame[1] = result.getString(Const.GAME_WHITENAME);
@@ -181,7 +181,7 @@ public class DatabaseHandler extends Configs {
         return infoOfNotFinishedGames;
     }
 
-    public void AddSpectator(int gameId, String spectatorName){
+    public void AddSpectator(int gameId, String spectatorName) {
         String insert = "INSERT INTO " + Const.SPECTATOR_TABLE + "(" + Const.SPECTATOR_GAMEID + "," + Const.SPECTATOR_SPECTATORNAME + ")" + "VALUES(?,?)";
 
         try {
@@ -197,10 +197,10 @@ public class DatabaseHandler extends Configs {
         logger.info("New spectator added to database");
     }
 
-    private boolean IsIdenticalGameId(int gameId){
+    private boolean IsIdenticalGameId(int gameId) {
         String query = "SELECT " + Const.GAME_GAMEID + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + "= ?";
 
-        try (PreparedStatement stmt =  GetDbConnection().prepareStatement(query)) {
+        try (PreparedStatement stmt = GetDbConnection().prepareStatement(query)) {
             stmt.setLong(1, gameId);
             ResultSet rs = stmt.executeQuery();
             return rs.next();
@@ -208,28 +208,29 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
     }
-    public void CreateGame(String userName, String type){
+
+    public void CreateGame(String userName, String type) {
         ResultSet resultSet = null;
         String bye = null;
         try {
             resultSet = GetUser("bye");
-            if(resultSet.next()){
+            if (resultSet.next()) {
                 bye = resultSet.getString(Const.USER_NAME);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        if(bye == null){
+        if (bye == null) {
             AddUser("bye", "");
         }
 
         var random = new Random();
-        int gameId = random.nextInt(0,1000000);
-        while(IsIdenticalGameId(gameId)){
+        int gameId = random.nextInt(0, 1000000);
+        while (IsIdenticalGameId(gameId)) {
             gameId += random.nextInt(0, 1000000);
         }
 
-        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_GAMEID + "," + Const.GAME_WHITENAME + "," + Const.GAME_BLACKNAME + "," + Const.GAME_TYPE+ ")" + "VALUES(?,?,?,?)";
+        String insert = "INSERT INTO " + Const.GAME_TABLE + "(" + Const.GAME_GAMEID + "," + Const.GAME_WHITENAME + "," + Const.GAME_BLACKNAME + "," + Const.GAME_TYPE + ")" + "VALUES(?,?,?,?)";
         try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(insert);
             prSt.setInt(1, gameId);
@@ -242,7 +243,8 @@ public class DatabaseHandler extends Configs {
         }
         logger.info("The new game was created");
     }
-    private ResultSet GetGame(int gameId){
+
+    private ResultSet GetGame(int gameId) {
         String select = "SELECT * FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         ResultSet resultSet = null;
 
@@ -255,9 +257,10 @@ public class DatabaseHandler extends Configs {
 
         return resultSet;
     }
-    private void UpdateUsers(int GameId, String valueWhiteName, String valueBlackName){
-        String updateWhite = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_WHITENAME + " = " + "'"+valueWhiteName+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
-        String updateBlack = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'"+valueBlackName+"'" + " WHERE " + Const.GAME_GAMEID + " =?";
+
+    private void UpdateUsers(int GameId, String valueWhiteName, String valueBlackName) {
+        String updateWhite = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_WHITENAME + " = " + "'" + valueWhiteName + "'" + " WHERE " + Const.GAME_GAMEID + " =?";
+        String updateBlack = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'" + valueBlackName + "'" + " WHERE " + Const.GAME_GAMEID + " =?";
 
         try {
             PreparedStatement prStWhite = GetDbConnection().prepareStatement(updateWhite);
@@ -271,7 +274,8 @@ public class DatabaseHandler extends Configs {
             throw new RuntimeException(e);
         }
     }
-    public String[] StartGame(int gameId, String UserName){
+
+    public String[] StartGame(int gameId, String UserName) {
         ResultSet resultSet = null;
         String WhiteName = null;
         String BlackName = null;
@@ -280,21 +284,20 @@ public class DatabaseHandler extends Configs {
             if (resultSet.next()) {
                 WhiteName = resultSet.getString(Const.GAME_WHITENAME);
                 BlackName = resultSet.getString(Const.GAME_BLACKNAME);
-            }
-            else{
+            } else {
                 return new String[]{"Error1", "Error"};
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        if(WhiteName.equals(UserName)){
+        if (WhiteName.equals(UserName)) {
             return new String[]{"Error2", "Error"};
-        }else if(!BlackName.equals("bye")){
+        } else if (!BlackName.equals("bye")) {
             return new String[]{"Error3", "Error"};
         }
 
-        String updateMoves  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
-        String updateUser  = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'" + UserName + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateMoves = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_MOVES + " = " + "'***'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
+        String updateUser = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_BLACKNAME + " = " + "'" + UserName + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         try {
             PreparedStatement prsMove = GetDbConnection().prepareStatement(updateMoves);
             PreparedStatement prsUser = GetDbConnection().prepareStatement(updateUser);
@@ -305,29 +308,30 @@ public class DatabaseHandler extends Configs {
         }
 
         var random = new Random();
-        byte colorWhite = (byte)random.nextInt(1, 3);
-        if(colorWhite == 1){
+        byte colorWhite = (byte) random.nextInt(1, 3);
+        if (colorWhite == 1) {
             UpdateUsers(gameId, WhiteName, UserName);
             logger.info("The game was started");
             return new String[]{WhiteName, UserName};
-        }else{
+        } else {
             UpdateUsers(gameId, UserName, WhiteName);
             logger.info("The game was started");
             return new String[]{UserName, WhiteName};
         }
 
     }
-    public boolean EndGame(int gameId, int result){
+
+    public boolean EndGame(int gameId, int result) {
         String deleteCounter = "DELETE FROM " + Const.POSITION_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateSpectator = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_SPECTATORNAME + " = " + "NULL" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String updateResult = "UPDATE " + Const.GAME_TABLE + " SET " + Const.GAME_RESULT + " = " + "'" + result + "'" + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
         String deleteSpectator = "DELETE FROM " + Const.SPECTATOR_TABLE + " WHERE " + Const.GAME_GAMEID + " = " + gameId;
 
-        try{
-            PreparedStatement stmtCounter =  GetDbConnection().prepareStatement(deleteCounter);
-            PreparedStatement stmtSpectator =  GetDbConnection().prepareStatement(updateSpectator);
-            PreparedStatement stmtResult =  GetDbConnection().prepareStatement(updateResult);
-            PreparedStatement stmtDeleteSpectator =  GetDbConnection().prepareStatement(deleteSpectator);
+        try {
+            PreparedStatement stmtCounter = GetDbConnection().prepareStatement(deleteCounter);
+            PreparedStatement stmtSpectator = GetDbConnection().prepareStatement(updateSpectator);
+            PreparedStatement stmtResult = GetDbConnection().prepareStatement(updateResult);
+            PreparedStatement stmtDeleteSpectator = GetDbConnection().prepareStatement(deleteSpectator);
             stmtCounter.executeUpdate();
             stmtSpectator.executeUpdate();
             stmtResult.executeUpdate();
@@ -339,11 +343,11 @@ public class DatabaseHandler extends Configs {
         return true;
     }
 
-    public int GetRepeatCounter(int gameId, String position){
+    public int GetRepeatCounter(int gameId, String position) {
         String select = "SELECT " + Const.POSITION_REPEATCOUNTER + " FROM " + Const.POSITION_TABLE + " WHERE " + Const.POSITION_POSITION + " = ? AND " + Const.POSITION_GAMEID + " = ?";
 
         int repeatCounter = -1;
-        try{
+        try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(select);
             prSt.setString(1, position);
             prSt.setInt(2, gameId);
@@ -351,35 +355,32 @@ public class DatabaseHandler extends Configs {
             if (rs.next()) {
                 repeatCounter = rs.getInt("repeatCounter");
             }
-        }
-        catch(SQLException | ClassNotFoundException | IOException e){
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
         return repeatCounter;
     }
 
-    public void UpdatePosition(int gameId, String position){
+    public void UpdatePosition(int gameId, String position) {
         String update = "UPDATE " + Const.POSITION_TABLE + " SET " + Const.POSITION_REPEATCOUNTER + " = " + Const.POSITION_REPEATCOUNTER + " + 1 WHERE " + Const.POSITION_POSITION + " = ? AND " + Const.POSITION_GAMEID + " = ?";
-        try{
+        try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(update);
             prSt.setString(1, position);
             prSt.setInt(2, gameId);
             prSt.executeUpdate();
-        }
-        catch(SQLException | ClassNotFoundException | IOException e){
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
     }
 
-    public void InsertPosition(int gameId, String position){
+    public void InsertPosition(int gameId, String position) {
         String insert = "INSERT INTO " + Const.POSITION_TABLE + " (" + Const.POSITION_GAMEID + ", " + Const.POSITION_POSITION + ", " + Const.POSITION_REPEATCOUNTER + ") VALUES (?, ?, 1)";
-        try{
+        try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(insert);
             prSt.setInt(1, gameId);
             prSt.setString(2, position);
             prSt.executeUpdate();
-        }
-        catch(SQLException | ClassNotFoundException | IOException e){
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
 
@@ -389,15 +390,14 @@ public class DatabaseHandler extends Configs {
         String select = "SELECT " + Const.GAME_WHITENAME + " FROM " + Const.GAME_TABLE + " WHERE " + Const.GAME_GAMEID + " =  " + gameId;
         String whiteName = null;
 
-        try{
+        try {
             PreparedStatement prSt = GetDbConnection().prepareStatement(select);
 
             ResultSet rs = prSt.executeQuery();
             if (rs.next()) {
                 whiteName = rs.getString(Const.GAME_WHITENAME);
             }
-        }
-        catch(SQLException | ClassNotFoundException | IOException e){
+        } catch (SQLException | ClassNotFoundException | IOException e) {
             throw new RuntimeException(e);
         }
 
