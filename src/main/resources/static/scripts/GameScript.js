@@ -24,6 +24,18 @@ socket.onopen = () => {
 
 socket.onmessage = function (event) {
     let field = JSON.parse(event.data);
+    if ((localStorage.getItem('color') === 'white' && field[8][0] === 2) ||
+        (localStorage.getItem('color') === 'black' && field[8][0] === 1)) {
+        for (let i = 0; i < 8; i++) {
+            for (let j = 0; j < 8; j++) {
+                if (field[i][j] < 0) {
+                    field[i][j] = -field[i][j];
+                } else if (field[i][j] > 100) {
+                    field[i][j] -= 100;
+                }
+            }
+        }
+    }
     if (localStorage.getItem('color') === 'black') {
         showField(ChangeColor(field));
     } else {
