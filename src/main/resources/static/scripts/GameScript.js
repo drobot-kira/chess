@@ -29,11 +29,13 @@ socket.onmessage = function (event) {
     } else {
         showField(field);
     }
+    if (field[8][6] != 0 || field[8][7] != 0) {
+        showPromotionSelectionItems(field);
+    }
 }
 
 function showField(field) {
-    if (field[0][2] == 0)
-    {
+    if (field[0][2] == 0) {
         return;
     }
     for (i = 0; i < 8; i++) {
@@ -90,6 +92,50 @@ function showField(field) {
     }
 }
 
+function showPromotionSelectionItems(field) {
+    if (localStorage.getItem('color') === 'white') {
+        let pawnIndex;
+        for (i = 0; i < 8; i++) {
+            if (field[0][i] === 11) {
+                pawnIndex = i;
+                break;
+            }
+        }
+
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/queen_whiteOnBlack_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/knight_whiteOnBlack_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/rook_whiteOnBlack_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/bishop_whiteOnBlack_selected.png')";
+    } else {
+        let pawnIndex;
+        for (i = 0; i < 8; i++) {
+            if (field[7][i] === 21) {
+                pawnIndex = 7 - i;
+                break;
+            }
+        }
+
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/queen_blackOnWhite_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/knight_blackOnWhite_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/rook_blackOnWhite_selected.png')";
+        pawnIndex += 10;
+        document.getElementById(pawnIndex).className = "line__item__button__promotion-selection";
+        document.getElementById(pawnIndex).style.backgroundImage = "url('/images/pieces/bishop_blackOnWhite_selected.png')";
+    }
+}
+
 function SquareClicked(SqId) {
     let squareId = parseInt(SqId);
     let gameId = localStorage.getItem('gameid');
@@ -101,14 +147,79 @@ function SquareClicked(SqId) {
         squareId = (7 - i) * 10 + 7 - j;
     }
 
-    let message = JSON.stringify({
-        Type: "SquareClicked",
-        SquareId: squareId,
-        GameId: gameId,
-        UserId: userId,
-        Opponent: localStorage.getItem('opponent')
-    });
-    socket.send(message);
+    let promotionSelection = document.getElementsByClassName("line__item__button__promotion-selection");
+
+    if (promotionSelection.length !== 0) {
+        let piece = -1;
+        for (let i = 0; i < promotionSelection.length; i++) {
+            if (promotionSelection[i].id == SqId) {
+                piece = i;
+                break;
+            }
+        }
+        if (piece === -1) {
+            let message = JSON.stringify({
+                Type: "PawnPromotionCancellation",
+                GameId: gameId,
+                Opponent: localStorage.getItem('opponent')
+            });
+
+            socket.send(message);
+        } else {
+            piece = Math.trunc(squareId / 10);
+            let type, color;
+            if (piece === 0) {
+                type = 'queen';
+                color = 'white';
+            } else if (piece === 1) {
+                type = 'knight';
+                color = 'white';
+            } else if (piece === 2) {
+                type = 'rook';
+                color = 'white';
+            } else if (piece === 3) {
+                type = 'bishop';
+                color = 'white';
+            } else if (piece === 4) {
+                type = 'bishop';
+                color = 'black';
+            } else if (piece === 5) {
+                type = 'rook';
+                color = 'black';
+            } else if (piece === 6) {
+                type = 'knight';
+                color = 'black';
+            } else if (piece === 7) {
+                type = 'queen';
+                color = 'black';
+            }
+            let message = JSON.stringify({
+                Type: "PawnPromotion",
+                SquareId: squareId,
+                PieceType: type,
+                Color: color,
+                GameId: gameId,
+                Opponent: localStorage.getItem('opponent')
+            });
+
+            socket.send(message);
+        }
+
+    } else {
+        let message = JSON.stringify({
+            Type: "SquareClicked",
+            SquareId: squareId,
+            GameId: gameId,
+            UserId: userId,
+            Opponent: localStorage.getItem('opponent')
+        });
+        socket.send(message);
+    }
+
+    for (let i = promotionSelection.length - 1; i >= 0; i--) {
+        document.getElementById(promotionSelection[0].id).className = "line__item__button";
+    }
+
 }
 
 function ChangeColor(field) {

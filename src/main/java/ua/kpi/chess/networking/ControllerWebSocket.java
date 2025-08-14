@@ -56,7 +56,6 @@ public class ControllerWebSocket extends TextWebSocketHandler {
             byte squareId = (byte) jsonNode.get("SquareId").asInt();
             int gameId = jsonNode.get("GameId").asInt();
             String userId = jsonNode.get("UserId").asText();
-            String opponentUserId = jsonNode.get("Opponent").asText();
 
             Game game = new Game();
             byte[][] field = game.SquareClicked(gameId, squareId, userId);
@@ -67,20 +66,61 @@ public class ControllerWebSocket extends TextWebSocketHandler {
                     intField[i][j] = field[i][j];
                 }
             }
-
             String jsonResponse = objectMapper.writeValueAsString(intField);
             session.sendMessage(new TextMessage(jsonResponse));
 
+            if (field[8][6] == 0 && field[8][7] == 0) {
+                String opponentUserId = jsonNode.get("Opponent").asText();
+                WebSocketSession opponentSession = findSessionByUserName(opponentUserId);
+                if (opponentSession != null && opponentSession.isOpen()) {
+                    opponentSession.sendMessage(new TextMessage(jsonResponse));
+                }
+            }
+        } else if (type.equals("PawnPromotion")) {
+            byte squareId = (byte) jsonNode.get("SquareId").asInt();
+            String pieceType = jsonNode.get("PieceType").asText();
+            String color = jsonNode.get("Color").asText();
+            int gameId = jsonNode.get("GameId").asInt();
+
+            Game game = new Game();
+            byte[][] field = game.PawnPromotion(gameId, squareId, color, pieceType);
+            int[][] intField = new int[field.length][field[0].length];
+            for (int i = 0; i < field.length; i++) {
+                for (int j = 0; j < field[i].length; j++) {
+                    intField[i][j] = field[i][j];
+                }
+            }
+
+            String jsonResponse = objectMapper.writeValueAsString(intField);
+            session.sendMessage(new TextMessage(jsonResponse));
+            String opponentUserId = jsonNode.get("Opponent").asText();
             WebSocketSession opponentSession = findSessionByUserName(opponentUserId);
             if (opponentSession != null && opponentSession.isOpen()) {
                 opponentSession.sendMessage(new TextMessage(jsonResponse));
             }
-        }
-        else if (type.equals("Identify")) {
+        } else if (type.equals("PawnPromotionCancellation")) {
+            int gameId = jsonNode.get("GameId").asInt();
+            String opponentUserId = jsonNode.get("Opponent").asText();
+
+            Game game = new Game();
+            byte[][] field = game.PawnPromotionCancellation(gameId);
+            int[][] intField = new int[field.length][field[0].length];
+            for (int i = 0; i < field.length; i++) {
+                for (int j = 0; j < field[i].length; j++) {
+                    intField[i][j] = field[i][j];
+                }
+            }
+
+            String jsonResponse = objectMapper.writeValueAsString(intField);
+            session.sendMessage(new TextMessage(jsonResponse));
+            WebSocketSession opponentSession = findSessionByUserName(opponentUserId);
+            if (opponentSession != null && opponentSession.isOpen()) {
+                opponentSession.sendMessage(new TextMessage(jsonResponse));
+            }
+        } else if (type.equals("Identify")) {
             String userName = jsonNode.get("UserName").asText();
             sessionUserNames.put(session, userName);
-        }
-        else if (type.equals("LogIn")) {
+        } else if (type.equals("LogIn")) {
             String name = jsonNode.get("Name").asText();
             String password = jsonNode.get("Password").asText();
 
@@ -88,8 +128,7 @@ public class ControllerWebSocket extends TextWebSocketHandler {
             String jsonResponse = objectMapper.writeValueAsString(output);
 
             session.sendMessage(new TextMessage(jsonResponse));
-        }
-        else if (type.equals("SignUp")) {
+        } else if (type.equals("SignUp")) {
             String name = jsonNode.get("Name").asText();
             String password = jsonNode.get("Password").asText();
 
@@ -97,8 +136,7 @@ public class ControllerWebSocket extends TextWebSocketHandler {
             String jsonResponse = objectMapper.writeValueAsString(output);
 
             session.sendMessage(new TextMessage(jsonResponse));
-        }
-        else if (type.equals("CreateGame")) {
+        } else if (type.equals("CreateGame")) {
             String userName = jsonNode.get("UserName").asText();
             String gameType = jsonNode.get("GameType").asText();
 
@@ -119,8 +157,7 @@ public class ControllerWebSocket extends TextWebSocketHandler {
                     s.sendMessage(new TextMessage(jsonResponse));
                 }
             }
-        }
-        else if (type.equals("GetUnstartedGames")) {
+        } else if (type.equals("GetUnstartedGames")) {
             DatabaseHandler databaseHandler = new DatabaseHandler();
             List<String[]> unstartedGames = databaseHandler.GetInfoOfUnstartedGames();
 
@@ -130,8 +167,7 @@ public class ControllerWebSocket extends TextWebSocketHandler {
 
             String jsonResponse = objectMapper.writeValueAsString(response);
             session.sendMessage(new TextMessage(jsonResponse));
-        }
-        else if (type.equals("StartGame")) {
+        } else if (type.equals("StartGame")) {
             int gameId = jsonNode.get("GameId").asInt();
             String userName = jsonNode.get("UserName").asText();
             DatabaseHandler databaseHandler = new DatabaseHandler();
