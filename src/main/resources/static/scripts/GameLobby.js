@@ -59,7 +59,7 @@ socket.onmessage = (event) => {
     } else if (data.type === 'StartGame') {
         localStorage.setItem('color', data.color);
         localStorage.setItem('gameid', data.gameid);
-        localStorage.setItem('opponent', data.opponent)
+        localStorage.setItem('opponent', data.opponent);
         window.location.replace('/chess/game/index.html');
     }
 };
